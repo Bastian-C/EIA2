@@ -1,3 +1,8 @@
+function init() {
+    NameCheck();
+}
+document.addEventListener("DOMContentLoaded", init);
+
 function NameCheck() {
     var name = prompt("Bitte fügen Sie ihren Namen unten ein.");
     if (name != null) {
@@ -6,4 +11,3 @@ function NameCheck() {
     }
     console.info("Hallo " + name + "!");
 }
-//# sourceMappingURL=main.js.map
