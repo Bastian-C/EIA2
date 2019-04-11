@@ -172,7 +172,7 @@ let topCard:Card;
 
 
 function drawCard():void{
-    let n:number = Math.floor(Math.random() * (deck.length-1)); 
+    let n:number = Math.floor(Math.random() * (deck.length)); 
     hand.push(deck[n]); 
     deck.splice(n,1);
 }
@@ -184,7 +184,7 @@ function generateDeck():void{
 }
 
 function generatePile():void{
-    let n:number = Math.floor(Math.random() * (deck.length-1)); 
+    let n:number = Math.floor(Math.random() * (deck.length)); 
     topCard=deck[n];   
     deck.splice(n,1);
     
@@ -248,7 +248,7 @@ function generateHandCards():void{
 
     document.getElementById("HandDisplay").innerHTML = "";
 
-    for (var i: number = 0; i < hand.length; i++){
+    for (let i: number = 0; i < hand.length; i++){
         let write:string = "";
         write += `<div class="CardBorder">`;
 
@@ -307,16 +307,16 @@ function generateHandCards():void{
 }
 
 function startingHand():void{
-    let HandSize: number = 0;
+    let handSize: number = 0;
     do  
         {
-        HandSize = parseInt(prompt("Select Handsize (Enter number between 4 and 10)"));
+        handSize = parseInt(prompt("Select Handsize (Enter number between 4 and 10)"));
         } 
-    while (isNaN(HandSize) || HandSize > 10 || HandSize < 4); //Wird so oft wiederholt, bis die Eingabe eine Zahl zwischen 4 und 10 ist. "isNaN" bedeutet "Is Not a Number"
+    while (isNaN(handSize) || handSize > 10 || handSize < 4); //Wird so oft wiederholt, bis die Eingabe eine Zahl zwischen 4 und 10 ist. "isNaN" bedeutet "Is Not a Number"
 
-    console.log("Handsize: "+HandSize);
+    console.log("Handsize: "+handSize);
 
-    for(let i:number=0;i<HandSize;i++){
+    for(let i:number=0;i<handSize;i++){
         drawCard();
     }
     console.log(hand);
@@ -326,7 +326,13 @@ function startingHand():void{
     generateHandCards();
 }
 
+function sortCards(){
 
+    hand.sort((a, b)=>{return a.Value - b.Value;});
+
+    hand.sort((a, b)=>{return a.Pic - b.Pic;});
+
+}
 
 function init(){
     startingHand();
