@@ -1,148 +1,186 @@
 let cr7 = {
     Pic: 1,
     Value: 7,
+    Position: "Null",
 };
 let cr8 = {
     Pic: 1,
     Value: 8,
+    Position: "Null",
 };
 let cr9 = {
     Pic: 1,
     Value: 9,
+    Position: "Null",
 };
 let cr10 = {
     Pic: 1,
     Value: 10,
+    Position: "Null",
 };
 let crJ = {
     Pic: 1,
     Value: 11,
+    Position: "Null",
 };
 let crQ = {
     Pic: 1,
     Value: 12,
+    Position: "Null",
 };
 let crK = {
     Pic: 1,
     Value: 13,
+    Position: "Null",
 };
 let crA = {
     Pic: 1,
     Value: 14,
+    Position: "Null",
 };
 let di7 = {
     Pic: 2,
     Value: 7,
+    Position: "Null",
 };
 let di8 = {
     Pic: 2,
     Value: 8,
+    Position: "Null",
 };
 let di9 = {
     Pic: 2,
     Value: 9,
+    Position: "Null",
 };
 let di10 = {
     Pic: 2,
     Value: 10,
+    Position: "Null",
 };
 let diJ = {
     Pic: 2,
     Value: 11,
+    Position: "Null",
 };
 let diQ = {
     Pic: 2,
     Value: 12,
+    Position: "Null",
 };
 let diK = {
     Pic: 2,
     Value: 13,
+    Position: "Null",
 };
 let diA = {
     Pic: 2,
     Value: 14,
+    Position: "Null",
 };
 let sp7 = {
     Pic: 3,
     Value: 7,
+    Position: "Null",
 };
 let sp8 = {
     Pic: 3,
     Value: 8,
+    Position: "Null",
 };
 let sp9 = {
     Pic: 3,
     Value: 9,
+    Position: "Null",
 };
 let sp10 = {
     Pic: 3,
     Value: 10,
+    Position: "Null",
 };
 let spJ = {
     Pic: 3,
     Value: 11,
+    Position: "Null",
 };
 let spQ = {
     Pic: 3,
     Value: 12,
+    Position: "Null",
 };
 let spK = {
     Pic: 3,
     Value: 13,
+    Position: "Null",
 };
 let spA = {
     Pic: 3,
     Value: 14,
+    Position: "Null",
 };
 let he7 = {
     Pic: 4,
     Value: 7,
+    Position: "Null",
 };
 let he8 = {
     Pic: 4,
     Value: 8,
+    Position: "Null",
 };
 let he9 = {
     Pic: 4,
     Value: 9,
+    Position: "Null",
 };
 let he10 = {
     Pic: 4,
     Value: 10,
+    Position: "Null",
 };
 let heJ = {
     Pic: 4,
     Value: 11,
+    Position: "Null",
 };
 let heQ = {
     Pic: 4,
     Value: 12,
+    Position: "Null",
 };
 let heK = {
     Pic: 4,
     Value: 13,
+    Position: "Null",
 };
 let heA = {
     Pic: 4,
     Value: 14,
+    Position: "Null",
 };
 let deck = [cr7, cr8, cr9, cr10, crJ, crQ, crK, crA, di7, di8, di9, di10, diJ, diQ, diK, diA, sp7, sp8, sp9, sp10, spJ, spQ, spK, spA, he7, he8, he9, he10, heJ, heQ, heK, heA];
 let hand = [];
+let pile = [];
 let topCard;
 function drawCard() {
-    let n = Math.floor(Math.random() * (deck.length - 1));
-    hand.push(deck[n]);
-    deck.splice(n, 1);
+    if (deck.length > 0) {
+        let n = Math.floor(Math.random() * (deck.length));
+        hand.push(deck[n]);
+        deck.splice(n, 1);
+        generateHandCards();
+        console.log(hand);
+    }
+    else {
+        alert("The Deck is Empty!");
+    }
 }
 function generateDeck() {
+    document.getElementById("Deck").addEventListener("click", drawCard);
     document.getElementById("Deck").innerHTML = `<div class="CardBorder">
     <img src="img/Back.png" alt="MISSING TEXTURE" class="CardBack">
     </div>`;
 }
 function generatePile() {
-    let n = Math.floor(Math.random() * (deck.length - 1));
-    topCard = deck[n];
-    deck.splice(n, 1);
     let write = "";
     write += `<div class="CardBorder">`;
     switch (topCard.Pic) {
@@ -197,10 +235,12 @@ function generatePile() {
     document.getElementById("Pile").innerHTML = `${write}`;
 }
 function generateHandCards() {
+    document.getElementById("HandDisplay").addEventListener("click", playCard);
     document.getElementById("HandDisplay").innerHTML = "";
-    for (var i = 0; i < hand.length; i++) {
+    for (let i = 0; i < hand.length; i++) {
+        hand[i].Position = "Position" + i;
         let write = "";
-        write += `<div class="CardBorder">`;
+        write += `<div class="CardBorder" id="Position${i}">`;
         switch (hand[i].Pic) {
             case 1:
                 write += `<img src="img/Cross.png" class="Symbol" alt="♣">
@@ -254,21 +294,73 @@ function generateHandCards() {
     }
 }
 function startingHand() {
-    let HandSize = 0;
+    let handSize = 0;
     do {
-        HandSize = parseInt(prompt("Select Handsize (Enter number between 4 and 10)"));
-    } while (isNaN(HandSize) || HandSize > 10 || HandSize < 4); //Wird so oft wiederholt, bis die Eingabe eine Zahl zwischen 4 und 10 ist. "isNaN" bedeutet "Is Not a Number"
-    console.log("Handsize: " + HandSize);
-    for (let i = 0; i < HandSize; i++) {
+        handSize = parseInt(prompt("Select Handsize (Enter number between 4 and 10)"));
+    } while (isNaN(handSize) || handSize > 10 || handSize < 4); //Wird so oft wiederholt, bis die Eingabe eine Zahl zwischen 4 und 10 ist. "isNaN" bedeutet "Is Not a Number"
+    console.log("Handsize: " + handSize);
+    for (let i = 0; i < handSize; i++) {
         drawCard();
     }
-    console.log(hand);
     generateDeck();
+    let n = Math.floor(Math.random() * (deck.length));
+    topCard = deck[n];
+    deck.splice(n, 1);
     generatePile();
+    document.getElementById("Sort").addEventListener("click", sortCards);
     generateHandCards();
 }
+function playCard() {
+    let selectedCardID = event.target;
+    for (let i = 0; i < hand.length; i++) {
+        if (String(selectedCardID.getAttribute("id")) == hand[i].Position) {
+            if (hand[i].Pic == topCard.Pic || hand[i].Value == topCard.Value) {
+                pile.push(topCard);
+                topCard = hand[i];
+                hand[i].Position = "Null";
+                hand.splice(i, 1);
+                generateHandCards();
+                generatePile();
+                console.log("DONE!");
+            }
+            else {
+                alert("Unable to play this Card!");
+            }
+        }
+    }
+}
+function sortCards() {
+    hand.sort(sortByValue);
+    hand.sort(sortByPic);
+    generateHandCards();
+}
+function sortByValue(_a, _b) {
+    let value_a = _a.Value;
+    let value_b = _b.Value;
+    if (value_a < value_b)
+        return -1;
+    if (value_a > value_b)
+        return 1;
+    if (value_a == value_b)
+        return 0;
+}
+function sortByPic(_a, _b) {
+    let pic_a = _a.Pic;
+    let pic_b = _b.Pic;
+    if (pic_a < pic_b)
+        return -1;
+    if (pic_a > pic_b)
+        return 1;
+    if (pic_a == pic_b)
+        return 0;
+}
+function whatKey(event) {
+    if (event.keyCode == 32)
+        drawCard();
+}
+document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("keydown", whatKey);
 function init() {
     startingHand();
 }
-document.addEventListener("DOMContentLoaded", init);
 //# sourceMappingURL=main.js.map

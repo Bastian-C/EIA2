@@ -1,192 +1,231 @@
 interface Card {
     Pic:number; // 1 = Kreuz, 2 = Karo, 3 = Pik, 4 = Herz
     Value:number;
+    Position:string;
 }
 
 let cr7:Card={ //Karten mit Kreuz
     Pic:1,
-    Value:7,   
+    Value:7,
+    Position:"Null",
 }
 
 let cr8:Card={
     Pic:1,
     Value:8,   
+    Position:"Null",
 }
 
 let cr9:Card={
     Pic:1,
     Value:9,   
+    Position:"Null",
 }
 
 let cr10:Card={
     Pic:1,
     Value:10,   
+    Position:"Null",
 }
 
 let crJ:Card={
     Pic:1,
     Value:11,   
+    Position:"Null",
 }
 
 let crQ:Card={
     Pic:1,
     Value:12,   
+    Position:"Null",
 }
 
 let crK:Card={
     Pic:1,
     Value:13,   
+    Position:"Null",
 }
 
 let crA:Card={
     Pic:1,
     Value:14,   
+    Position:"Null",
 }
 
 let di7:Card={ //Karten mit Karo
     Pic:2,
     Value:7,   
+    Position:"Null",
 }
 
 let di8:Card={
     Pic:2,
     Value:8,   
+    Position:"Null",
 }
 
 let di9:Card={
     Pic:2,
     Value:9,   
+    Position:"Null",
 }
 
 let di10:Card={
     Pic:2,
     Value:10,   
+    Position:"Null",
 }
 
 let diJ:Card={
     Pic:2,
     Value:11,   
+    Position:"Null",
 }
 
 let diQ:Card={
     Pic:2,
     Value:12,   
+    Position:"Null",
 }
 
 let diK:Card={
     Pic:2,
     Value:13,   
+    Position:"Null",
 }
 
 let diA:Card={
     Pic:2,
     Value:14,   
+    Position:"Null",
 }
 
 let sp7:Card={ //Karten mit Pik
     Pic:3,
     Value:7,   
+    Position:"Null",
 }
 
 let sp8:Card={
     Pic:3,
     Value:8,   
+    Position:"Null",
 }
 
 let sp9:Card={
     Pic:3,
     Value:9,   
+    Position:"Null",
 }
 
 let sp10:Card={
     Pic:3,
     Value:10,   
+    Position:"Null",
 }
 
 let spJ:Card={
     Pic:3,
     Value:11,   
+    Position:"Null",
 }
 
 let spQ:Card={
     Pic:3,
     Value:12,   
+    Position:"Null",
 }
 
 let spK:Card={
     Pic:3,
     Value:13,   
+    Position:"Null",
 }
 
 let spA:Card={
     Pic:3,
     Value:14,   
+    Position:"Null",
 }
 
 let he7:Card={ //Karten mit Herz
     Pic:4,
     Value:7,   
+    Position:"Null",
 }
 
 let he8:Card={
     Pic:4,
     Value:8,   
+    Position:"Null",
 }
 
 let he9:Card={
     Pic:4,
     Value:9,   
+    Position:"Null",
 }
 
 let he10:Card={
     Pic:4,
     Value:10,   
+    Position:"Null",
 }
 
 let heJ:Card={
     Pic:4,
     Value:11,   
+    Position:"Null",
 }
 
 let heQ:Card={
     Pic:4,
     Value:12,   
+    Position:"Null",
 }
 
 let heK:Card={
     Pic:4,
     Value:13,   
+    Position:"Null",
 }
 
 let heA:Card={
     Pic:4,
     Value:14,   
+    Position:"Null",
 }
 
 let deck:Card[]=[cr7, cr8, cr9, cr10, crJ, crQ, crK, crA, di7, di8, di9, di10, diJ, diQ, diK, diA, sp7, sp8, sp9, sp10, spJ, spQ, spK, spA, he7, he8, he9, he10, heJ, heQ, heK, heA];
 
 let hand:Card[]=[];
+let pile:Card[]=[];
 
 let topCard:Card;
 
 
 
 function drawCard():void{
-    let n:number = Math.floor(Math.random() * (deck.length)); 
-    hand.push(deck[n]); 
-    deck.splice(n,1);
+    if(deck.length>0){
+        let n:number = Math.floor(Math.random() * (deck.length)); 
+        hand.push(deck[n]); 
+        deck.splice(n,1);
+        generateHandCards();
+        console.log(hand);
+        }
+    else{
+        alert("The Deck is Empty!")
+    }    
 }
 
 function generateDeck():void{
+    document.getElementById("Deck").addEventListener("click", drawCard);
     document.getElementById("Deck").innerHTML = `<div class="CardBorder">
     <img src="img/Back.png" alt="MISSING TEXTURE" class="CardBack">
     </div>`;     
 }
 
 function generatePile():void{
-    let n:number = Math.floor(Math.random() * (deck.length)); 
-    topCard=deck[n];   
-    deck.splice(n,1);
     
     let write:string = "";
         write += `<div class="CardBorder">`;
@@ -246,11 +285,13 @@ function generatePile():void{
 
 function generateHandCards():void{
 
+    document.getElementById("HandDisplay").addEventListener("click", playCard);
     document.getElementById("HandDisplay").innerHTML = "";
 
     for (let i: number = 0; i < hand.length; i++){
+        hand[i].Position="Position"+i;
         let write:string = "";
-        write += `<div class="CardBorder">`;
+        write += `<div class="CardBorder" id="Position${i}">`;
 
         switch (hand[i].Pic){
             case 1:
@@ -319,23 +360,71 @@ function startingHand():void{
     for(let i:number=0;i<handSize;i++){
         drawCard();
     }
-    console.log(hand);
 
     generateDeck();
+
+    let n:number = Math.floor(Math.random() * (deck.length)); 
+    topCard=deck[n];   
+    deck.splice(n,1);
     generatePile();
+    document.getElementById("Sort").addEventListener("click", sortCards);
     generateHandCards();
 }
 
-function sortCards(){
-
-    hand.sort((a, b)=>{return a.Value - b.Value;});
-
-    hand.sort((a, b)=>{return a.Pic - b.Pic;});
-
+function playCard(): void {
+    let selectedCardID: HTMLElement = <HTMLElement>event.target;
+    for (let i = 0; i < hand.length; i++) {
+        if (String(selectedCardID.getAttribute("id")) == hand[i].Position) { 
+            if (hand[i].Pic==topCard.Pic || hand[i].Value==topCard.Value){
+                pile.push(topCard); 
+                topCard=hand[i];
+                hand[i].Position="Null";
+                hand.splice(i,1);
+                generateHandCards();
+                generatePile();
+                console.log("DONE!");
+            }
+            else{
+                alert("Unable to play this Card!")
+            }
+        }    
+    }
 }
+
+function sortCards(){
+    hand.sort(sortByValue);
+    hand.sort(sortByPic);
+    generateHandCards();
+}
+
+function sortByValue(_a: Card, _b: Card): number {
+    let value_a: number = _a.Value;
+    let value_b: number = _b.Value;
+    if (value_a < value_b) return -1;
+    if (value_a > value_b) return 1;
+    if (value_a == value_b) return 0;
+}
+
+function sortByPic(_a: Card, _b: Card): number {
+    let pic_a: number = _a.Pic;
+    let pic_b: number = _b.Pic;
+    if (pic_a < pic_b) return -1;
+    if (pic_a > pic_b) return 1;
+    if (pic_a == pic_b) return 0;
+}
+
+
+function whatKey(event: KeyboardEvent): void {
+    if (event.keyCode == 32) drawCard();
+}
+
+document.addEventListener("DOMContentLoaded", init);
+document.addEventListener("keydown", whatKey);
 
 function init(){
     startingHand();
 }
 
-document.addEventListener("DOMContentLoaded", init);
+
+
+
