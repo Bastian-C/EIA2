@@ -3,22 +3,206 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Mau Mau</title>
+    <title>Ice Dealer</title>
     <link rel="stylesheet" type="text/css" href="styles/style.css">
     <script src="js/main.js"></script> 
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet"> 
 </head>
-
-<body>
 <!--      
-        Aufgabe: (Aufgabe 2 DynHTML: Mau Mau) Name: (Bastian Culig)
+        Aufgabe: (Aufgabe 4) Name: (Bastian Culig)
         Matrikel: (3612802046414452)
-        Datum: (07.04.2019) Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert. 
+        Datum: (21.04.2019) Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert. 
 -->
-    <main>
-        <div id="Deck"></div>
-        <div id="Pile"></div>
-        <button id="Sort">Sort Hand</button>
-        <div id="HandDisplay"></div>
-    </main>            
+<body>
+<header>
+    <h1>Ice Dealer</h1>
+</header>
+<main>
+    <div>
+
+        <fieldset id="scoops">
+            <legend>Flavours</legend>
+            <p><input type="number" name="amountFlavour1" step="1" min="0" max="4" value="0"/> Scoops <!-- Wähle Eissorte 1 -->
+                <select name="TheFlavour1" id="flavour1">
+                    <option value="noFlavour" selected>Select Flavour</option>
+                        <optgroup label="Fruit">
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Banana">Banana</option>
+                        <option value="Citrus">Citrus</option>
+                        <option value="Melon">Melon</option>
+                        <option value="Mango">Mango</option>
+                        <option value="Rasberry">Rasberry</option>
+                    </optgroup>
+                    <optgroup label="Milk">
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Vanilla">Vanilla</option>
+                        <option value="Coconut">Cocout</option>
+                        <option value="Oreo">Oreo</option>
+                        <option value="Cinamon">Cinamon</option>
+                        <option value="Rumpunch">Rumpunch</option>
+                    </optgroup>
+                </select>
+            </p>
+
+            <p><input type="number" name="amountFlavour2" step="1" min="0" max="4" value="0"/> Scoops <!-- Wähle Eissorte 2 -->
+                <select name="TheFlavour2" id="flavour2">
+                    <option value="noFlavour" selected>Select Flavour</option>
+                        <optgroup label="Fruit">
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Banana">Banana</option>
+                        <option value="Citrus">Citrus</option>
+                        <option value="Melon">Melon</option>
+                        <option value="Mango">Mango</option>
+                        <option value="Rasberry">Rasberry</option>
+                    </optgroup>
+                    <optgroup label="Milk">
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Vanilla">Vanilla</option>
+                        <option value="Coconut">Cocout</option>
+                        <option value="Oreo">Oreo</option>
+                        <option value="Cinamon">Cinamon</option>
+                        <option value="Rumpunch">Rumpunch</option>
+                    </optgroup>
+                </select>
+            </p>
+
+            <p><input type="number" name="amountFlavour3" step="1" min="0" max="4" value="0"/> Scoops <!-- Wähle Eissorte 3 -->
+                <select name="TheFlavour3" id="flavour3">
+                    <option value="noFlavour" selected>Select Flavour</option>
+                        <optgroup label="Fruit">
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Banana">Banana</option>
+                        <option value="Citrus">Citrus</option>
+                        <option value="Melon">Melon</option>
+                        <option value="Mango">Mango</option>
+                        <option value="Rasberry">Rasberry</option>
+                    </optgroup>
+                    <optgroup label="Milk">
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Vanilla">Vanilla</option>
+                        <option value="Coconut">Cocout</option>
+                        <option value="Oreo">Oreo</option>
+                        <option value="Cinamon">Cinamon</option>
+                        <option value="Rumpunch">Rumpunch</option>
+                    </optgroup>
+                </select>
+            </p>
+
+            <p><input type="number" name="amountFlavour4" step="1" min="0" max="4" value="0"/> Scoops <!-- Wähle Eissorte 4 -->
+                <select name="TheFlavour4" id="flavour4">
+                    <option value="noFlavour" selected>Select Flavour</option>
+                        <optgroup label="Fruit">
+                        <option value="Strawberry">Strawberry</option>
+                        <option value="Banana">Banana</option>
+                        <option value="Citrus">Citrus</option>
+                        <option value="Melon">Melon</option>
+                        <option value="Mango">Mango</option>
+                        <option value="Rasberry">Rasberry</option>
+                    </optgroup>
+                    <optgroup label="Milk">
+                        <option value="Chocolate">Chocolate</option>
+                        <option value="Vanilla">Vanilla</option>
+                        <option value="Coconut">Cocout</option>
+                        <option value="Oreo">Oreo</option>
+                        <option value="Cinamon">Cinamon</option>
+                        <option value="Rumpunch">Rumpunch</option>
+                    </optgroup>
+                </select>
+            </p>
+        </fieldset>
+
+
+
+    <fieldset id="holder">
+        <legend>Holder</legend>
+        <input type="radio" name="holder" value="0" id="Waffle" />
+        <label for="Waffle">Waffle</label>
+        <br>
+        <input type="radio" name="holder" value="0" id="Wafflecup"/>
+        <label for="Wafflecup">Wafflecup</label>
+        <br>
+		<input type="radio" name="holder" value="0" id="Cup"/>
+		<label for="Cup">Cup</label>
+    </fieldset>
+    
+    <fieldset id="Topping">
+        <legend>Topping</legend>
+        <input type="checkbox" name="Topping" value="0.40" id="CR"/>
+        <label for="Cream">Cream</label>
+        <br>
+		<input type="checkbox" name="Topping" value="0.40" id="CC"/>
+        <label for="Chocolate Chips">Chocolate Chips</label>
+        <br>
+        <input type="checkbox" name="Topping" value="0.40" id="VS"/>
+        <label for="Vanilla Sauce">Vanilla Sauce</label>
+        <br>
+		<input type="checkbox" name="Topping" value="0.40" id="CS"/>
+        <label for="Chocolate Sauce">Chocolate Sauce</label>
+    </fieldset>
+
+    <fieldset id="Delivery">
+        <legend>Delivery</legend>
+        <input type="radio" name="deli" value="4.00" id="To go" />
+        <label for="To go">To go</label>
+        <br>
+		<input type="radio" name="deli" value="5.00" id="Express"/>
+		<label for="Express">Express</label>
+    </fieldset>
+
+    <fieldset id="TotalAdress">
+        <legend>Delivery Adress</legend>
+        <label for="Name">Name</label>
+        <input type="text" name="Name" id="Name" placeholder="Name" required/>
+        <label for="Adress">Adress</label>
+        <input type="text" name="Adress" id="Adress" placeholder="Please enter Adress" required/>
+        <br>
+        <label for="Postle">Postle</label>
+        <input type="text" name="Postle" id="Postle" placeholder="78120" pattern="[0-9]{5}">
+        <label for="Town">Town</label>
+        <input type="text" name="Town" id="Town" placeholder="Town" required/>
+    </fieldset>
+    </div>
+
+    <aside>
+        <h3>Your Order</h3>
+        <div>
+            <p>Container:</p>
+            <ul id="Cont"></ul>
+        </div>
+        <div>
+            <p>Flavours:</p>
+            <ul id="Fla">
+                <li id="Flavour1"></li>
+                <li id="Flavour2"></li>
+                <li id="Flavour3"></li>
+                <li id="Flavour4"></li>
+            </ul>
+        </div>
+        <div>
+            <p>Topping:</p>
+            <ul id="Top"></ul>
+        </div>
+        <div>
+            <p>Delivery:</p>
+            <ul id="Del"></ul>
+            <p>Adress:</p>
+            <ul>    
+                <li id="DelName"></li>
+                <li id="DelAdress"></li>
+                <li id="DelPostle"></li>
+                <li id="DelTown"></li>
+            </ul>
+        </div>
+        <hr>
+        <div id="sumOfOrder">
+            <p>Sum</p>
+            <p id="price"></p>
+            <button id="checkOrder">Bestellen</button>
+        </div>
+    </aside>
+
+</main>
+<footer>
+    <script src="./js/main.js" type="text/javascript" charset="utf-8"></script>
+</footer>
 </body>
