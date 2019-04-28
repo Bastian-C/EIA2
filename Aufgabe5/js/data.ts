@@ -32,18 +32,18 @@ export let theBoxes: Category
         ],
         
 		"Flavours": [                                                                                                      //Options for the Flavours
-			{ called: "Strawberry", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Banana", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Citrus", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Melon", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Mango", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Rasberry", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Chocolate", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Vanilla", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Coconut", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Oreo", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Cinamon", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1},
-            { called: "Rumpunch", price: 1, type:"number", category:"Flavours", min:0, max:5, step:1}
+			{ called: "Strawberry", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Banana", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Citrus", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Melon", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Mango", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Rasberry", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Chocolate", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Vanilla", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Coconut", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Oreo", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Cinamon", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1},
+            { called: "Rumpunch", price: 0.8, type:"number", category:"Flavours", min:0, max:5, step:1}
         ],
 
         "Topping": [                                                                                                      //Options for the Toppings
@@ -54,9 +54,9 @@ export let theBoxes: Category
         ],
 
         "Delivery": [                                                                                                     //Options for Delivery
-			{ called: "Immediately", price: 2.00, type:"radio", category:"Delivery", min:0, max:0, step:0},
+			{ called: "Immediately", price: 1.00, type:"radio", category:"Delivery", min:0, max:0, step:0},
             { called: "To take", price: 0.00, type:"radio", category:"Delivery", min:0, max:0, step:0},
-            { called: "On time", price: 3.50, type:"radio", category:"Delivery", min:0, max:0, step:0}
+            { called: "On time", price: 1.50, type:"radio", category:"Delivery", min:0, max:0, step:0}
 		]
     };
 }
