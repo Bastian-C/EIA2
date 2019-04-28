@@ -96,53 +96,67 @@ namespace EisDealer {
 
         function check(_event:Event):void{
   
-            let fehler:string="";
+            let  error:string="";
             let flavourchecked:number=0;
             let containerCheck:number=0;
             let optionChecked:number=0;
-            let adressChecked:number=1;
+            let adressChecked:number=0;
                 
-                for(let d:number=0; d<6; d++){
-                    if(input[d].name == "Postle"){
-                        if(Number(input[d].value) < 10000 || Number(input[d].value) > 99999){
-                            adressChecked=0;
-                        }
-                    }
-                    if(input[d].value == ""){
-                        adressChecked=0;
-                    }
-                }
 
-                for(let z:number=0; z<input.length;z++){
-                    if(input[z].name == "Container" && input[z].checked == true){
+
+                for(let t:number=0; t<input.length;t++){
+                    if(input[t].name == "Name" && input[t].value != ""){
+                        containerCheck += 1;
+                    }
+                    if(input[t].name == "Street" && input[t].value != ""){
+                        containerCheck += 1;
+                    }
+                    if(input[t].name == "HouseID" && input[t].value != ""){
+                        containerCheck += 1;
+                    }
+                    if(input[t].name == "Postle" && input[t].value != ""){
+                        containerCheck += 1;
+                    }
+                    if(input[t].name == "Town" && input[t].value != ""){
+                        containerCheck += 1;
+                    }
+
+                    if (containerCheck == 5){
                         containerCheck = 1;
                     }
-                    if(input[z].name == "Flavours" && Number(input[z].value) > 0){
+                    else{
+                        containerCheck = 0;
+                    }
+
+                    if(input[t].name == "Container" && input[t].checked == true){
+                        containerCheck = 1;
+                    }
+                    if(input[t].name == "Flavours" && Number(input[t].value) > 0){
                         flavourchecked=1;
                     }
-                    if(input[z].name == "Delivery" && input[z].checked == true){
+                    if(input[t].name == "Delivery" && input[t].checked == true){
                         optionChecked = 1;
                     }
                 }
 
                 if(adressChecked == 0){
-                    fehler += "Adress Angaben" + String.fromCharCode(13);
+                     error += "Adress" + String.fromCharCode(13);
                 }
 
                 if(flavourchecked == 0){
-                    fehler += "Flavour "+ String.fromCharCode(13);
+                     error += "Flavour "+ String.fromCharCode(13);
                 }
 
                 if(containerCheck == 0){
-                    fehler += "Container "+ String.fromCharCode(13);
+                     error += "Container "+ String.fromCharCode(13);
                 }
 
                 if(optionChecked == 0){
-                    fehler += "Delivery "+ String.fromCharCode(13);
+                     error += "Delivery "+ String.fromCharCode(13);
                 }
                 
-                if(fehler!=""){
-                alert("Missing Values: "+ String.fromCharCode(13) + fehler)
+                if( error!=""){
+                alert("Missing Values: "+ String.fromCharCode(13) +  error)
                 }
 
                 else{
