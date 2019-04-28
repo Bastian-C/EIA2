@@ -1,252 +1,132 @@
 var EisDealer;
 (function (EisDealer) {
-    document.addEventListener("DOMContentLoaded", init); // Beim laden der Seite wird die Init funktion ausgeführt.
-    let amountOfFlavour1 = 0;
-    let amountOfFlavour2 = 0;
-    let amountOfFlavour3 = 0;
-    let amountOfFlavour4 = 0;
-    let flavour1 = "noFlavour";
-    let flavour2 = "noFlavour";
-    let flavour3 = "noFlavour";
-    let flavour4 = "noFlavour";
-    let totalToppings = 0;
-    let topCream = false;
-    let topCC = false;
-    let topVS = false;
-    let topCS = false;
-    let scoopCont = "";
-    let deliver = "";
-    let deliverCost = 0;
-    let DelName = "";
-    let DelAdress = "";
-    let DelPostle = "";
-    let DelTown = "";
-    let totalCost = 0;
-    let theCost = "";
+    /*
+        Aufgabe: Aufgabe 5, Eis Dealer reloaded
+        Name: (Bastian Culig)
+        Matrikel: (3612802046414452)
+        Datum: (28.04.2019) Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert.
+    */
+    window.addEventListener("load", init);
     function init() {
-        let containers = document.getElementsByTagName("fieldset"); // Erstelle ein ARRAY mit allen HTML Elementen vom Typ "fieldset".
-        for (let i = 0; i < containers.length; i++) {
-            containers[i].addEventListener("change", update); // Füge jedem Fieldset ein EventListener hinzu, der bei Änderungen ausgelößt wird. Bsp: Check box oder Radio element. 
-            // Lößt die "update" Funktion aus, die in meine Bestellung schreibt, was alles ausgewählt wurde.
-            document.getElementById("checkOrder").addEventListener("click", check_Order); //Beim Clicken auf den Button wird die Bestellung überprüft.
+        let fieldsets = document.getElementsByTagName("fieldset");
+        writeHTML(EisDealer.theBoxes);
+        for (let i = 0; i < fieldsets.length; i++) {
+            let fieldset = fieldsets[i];
+            fieldset.addEventListener("change", theChange);
+            document.getElementById("check").addEventListener("click", check);
         }
     }
-    function update(_event) {
-        console.log(_event);
-        let target = _event.target;
-        // Speichere alle nötigen Variablen
-        if (target.name == "holder") {
-            scoopCont = target.id;
-            document.getElementById("Cont").innerHTML = `${scoopCont}`;
-        }
-        if (target.name == "deli") {
-            deliver = target.id;
-            document.getElementById("Del").innerHTML = `${deliver}`;
-            if (target.value == "4.00") {
-                deliverCost = 4;
+    function writeHTML(_theboxes) {
+        document.getElementById('theBoxes').innerHTML = "";
+        document.getElementById('order').innerHTML = ""; // This fixes a bug, that causes the writeHTML to execute the for-loop twice ... somehow
+        for (let key in _theboxes) {
+            let category = _theboxes[key];
+            let div = document.createElement('div');
+            div.innerHTML = `<p>${key}</p>
+            <ul id="${key.substring(0, 5)}"></ul>`;
+            document.getElementById('order').appendChild(div);
+            let box = document.createElement('fieldset');
+            let write = `<legende>${key}</legende><br>`;
+            for (let b = 0; b < category.length; b++) {
+                write += `<input type="${category[b].type}" name="${category[b].category}" id="${category[b].called}" price="${category[b].price}" min="${category[b].min}" max="${category[b].max}" step="${category[b].step}" value="0">
+                    <label for="${category[b].called}">${category[b].called} ${category[b].price.toFixed(2)} €</label>
+                    <br>`;
             }
-            else if (target.value == "5.00") {
-                deliverCost = 5;
-            }
+            box.setAttribute("id", key);
+            box.innerHTML = write;
+            document.getElementById('theBoxes').appendChild(box);
         }
-        if (this.id == "Topping") {
-            console.log(target.id);
-            if (target.id == "CR") {
-                if (target.checked == true) {
-                    totalToppings += 1;
-                    topCream = true;
-                    console.log(topCream, topCC, topCS, topVS);
-                }
-                if (target.checked == false) {
-                    totalToppings -= 1;
-                    topCream = false;
-                    if (totalToppings < 0) {
-                        totalToppings = 0;
-                    }
-                }
-            }
-            if (target.id == "CC") {
-                if (target.checked == true) {
-                    totalToppings += 1;
-                    topCC = true;
-                }
-                if (target.checked == false) {
-                    totalToppings -= 1;
-                    topCC = false;
-                    if (totalToppings < 0) {
-                        totalToppings = 0;
-                    }
-                }
-            }
-            if (target.id == "VS") {
-                if (target.checked == true) {
-                    totalToppings += 1;
-                    topVS = true;
-                }
-                if (target.checked == false) {
-                    totalToppings -= 1;
-                    topVS = false;
-                    if (totalToppings < 0) {
-                        totalToppings = 0;
-                    }
-                }
-            }
-            if (target.id == "CS") {
-                if (target.checked == true) {
-                    totalToppings += 1;
-                    topCS = true;
-                }
-                if (target.checked == false) {
-                    totalToppings -= 1;
-                    topCS = false;
-                    if (totalToppings < 0) {
-                        totalToppings = 0;
-                    }
-                }
-            }
-            console.log("The amount of Toppings is:" + totalToppings);
-        }
-        if (target.name == "amountFlavour1") {
-            amountOfFlavour1 = parseInt(target.value);
-        }
-        if (target.name == "amountFlavour2") {
-            amountOfFlavour2 = parseInt(target.value);
-        }
-        if (target.name == "amountFlavour3") {
-            amountOfFlavour3 = parseInt(target.value);
-        }
-        if (target.name == "amountFlavour4") {
-            amountOfFlavour4 = parseInt(target.value);
-        }
-        if (target.name == "TheFlavour1") {
-            flavour1 = target.value;
-        }
-        if (target.name == "TheFlavour2") {
-            flavour2 = target.value;
-        }
-        if (target.name == "TheFlavour3") {
-            flavour3 = target.value;
-        }
-        if (target.name == "TheFlavour4") {
-            flavour4 = target.value;
-        }
-        totalCost = 1.0 * (amountOfFlavour1 + amountOfFlavour2 + amountOfFlavour3 + amountOfFlavour4) + deliverCost + (totalToppings * 0.4);
-        theCost = totalCost.toFixed(2);
-        console.log(totalCost, theCost);
-        if (target.name == "Name") {
-            DelName = target.value;
-            document.getElementById("DelName").innerHTML = "Full Name: " + DelName;
-        }
-        if (target.name == "Adress") {
-            DelAdress = target.value;
-            document.getElementById("DelAdress").innerHTML = "Adress: " + DelAdress;
-        }
-        if (target.name == "Postle") {
-            DelPostle = target.value;
-            document.getElementById("DelPostle").innerHTML = "Postle: " + DelPostle;
-        }
-        if (target.name == "Town") {
-            DelTown = target.value;
-            document.getElementById("DelTown").innerHTML = "Town: " + DelTown;
-        }
-        // Ende der Speicherung. Es Folgt das Rendern der Bestellung.
-        document.getElementById("price").innerHTML = "" + theCost + " €";
-        if (flavour1 != "noFlavour") {
-            if (amountOfFlavour1 == 0) {
-                document.getElementById("Flavour1").innerHTML = "";
-            }
-            else if (amountOfFlavour1 == 1) {
-                document.getElementById("Flavour1").innerHTML = amountOfFlavour1 + " Scoop " + flavour1;
-            }
-            else if (amountOfFlavour1 > 1) {
-                document.getElementById("Flavour1").innerHTML = amountOfFlavour1 + " Scoops " + flavour1;
-            }
-        }
-        if (flavour1 == "noFlavour") {
-            document.getElementById("Flavour1").innerHTML = "";
-        }
-        if (flavour2 != "noFlavour") {
-            if (amountOfFlavour2 == 0) {
-                document.getElementById("Flavour2").innerHTML = "";
-            }
-            else if (amountOfFlavour2 == 1) {
-                document.getElementById("Flavour2").innerHTML = amountOfFlavour2 + " Scoop " + flavour2;
-            }
-            else if (amountOfFlavour2 > 1) {
-                document.getElementById("Flavour2").innerHTML = amountOfFlavour2 + " Scoops " + flavour2;
-            }
-        }
-        if (flavour2 == "noFlavour") {
-            document.getElementById("Flavour2").innerHTML = "";
-        }
-        if (flavour3 != "noFlavour") {
-            if (amountOfFlavour3 == 0) {
-                document.getElementById("Flavour3").innerHTML = "";
-            }
-            else if (amountOfFlavour3 == 1) {
-                document.getElementById("Flavour3").innerHTML = amountOfFlavour3 + " Scoop " + flavour3;
-            }
-            else if (amountOfFlavour3 > 1) {
-                document.getElementById("Flavour3").innerHTML = amountOfFlavour3 + " Scoops " + flavour3;
-            }
-        }
-        if (flavour3 == "noFlavour") {
-            document.getElementById("Flavour3").innerHTML = "";
-        }
-        if (flavour4 != "noFlavour") {
-            if (amountOfFlavour4 == 0) {
-                document.getElementById("Flavour4").innerHTML = "";
-            }
-            else if (amountOfFlavour4 == 1) {
-                document.getElementById("Flavour4").innerHTML = amountOfFlavour4 + " Scoop " + flavour4;
-            }
-            else if (amountOfFlavour4 > 1) {
-                document.getElementById("Flavour4").innerHTML = amountOfFlavour4 + " Scoops " + flavour4;
-            }
-        }
-        if (flavour4 == "noFlavour") {
-            document.getElementById("Flavour4").innerHTML = "";
-        }
-        let write = "";
-        document.getElementById("Top").innerHTML = "";
-        if (topCream == true) {
-            write += `<li>Cream</li>`;
-        }
-        if (topCC == true) {
-            write += `<li>Chocolate Chips</li>`;
-        }
-        if (topVS == true) {
-            write += `<li>Vanilla Sauce</li>`;
-        }
-        if (topCS == true) {
-            write += `<li>Chocolate Sauce</li>`;
-        }
-        document.getElementById("Top").innerHTML = `${write}`;
     }
-    function check_Order() {
-        if (amountOfFlavour1 + amountOfFlavour2 + amountOfFlavour3 + amountOfFlavour4 < 1) {
-            alert("Please order at least 1 Scoop.");
+    let input = document.getElementsByTagName("input");
+    function theChange(_event) {
+        let sum = 0;
+        document.getElementById("Conta").innerHTML = "";
+        document.getElementById("Flavo").innerHTML = "";
+        document.getElementById("Toppi").innerHTML = "";
+        document.getElementById("Deliv").innerHTML = "";
+        for (let w = 0; w < input.length; w++) {
+            if (input[w].name != "") {
+                if (input[w].name == "Container" && input[w].checked == true) {
+                    let location = document.createElement("li");
+                    location.innerHTML = `${input[w].id}`;
+                    document.getElementById("Conta").appendChild(location);
+                }
+                ;
+                if (input[w].name == "Flavours") {
+                    let location = document.createElement("li");
+                    if (input[w].value != "0") {
+                        location.innerHTML = `${input[w].value}x ${input[w].id} ${Number(Number(input[w].value) * Number(input[w].getAttribute("price"))).toFixed(2)} €`;
+                        sum += Number(input[w].value) * Number(input[w].getAttribute("price"));
+                        document.getElementById("Flavo").appendChild(location);
+                    }
+                    ;
+                }
+                ;
+                if (input[w].name == "Topping" && input[w].checked == true) {
+                    let location = document.createElement("li");
+                    location.innerHTML = `${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
+                    sum += Number(input[w].getAttribute("price"));
+                    document.getElementById("Toppi").appendChild(location);
+                }
+                ;
+                if (input[w].name == "Delivery" && input[w].checked == true) {
+                    let location = document.createElement("li");
+                    location.innerHTML = `${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
+                    sum += Number(input[w].getAttribute("price"));
+                    document.getElementById("Deliv").appendChild(location);
+                }
+                ;
+            }
+            ;
         }
-        else if (amountOfFlavour1 > 0 && flavour1 == "noFlavour" || amountOfFlavour2 > 0 && flavour2 == "noFlavour" || amountOfFlavour3 > 0 && flavour3 == "noFlavour" || amountOfFlavour4 > 0 && flavour4 == "noFlavour") {
-            alert("Please select Flavour");
+        ;
+        document.getElementById("price").innerHTML = String(sum.toFixed(2)) + " €";
+    }
+    ;
+    function check(_event) {
+        let fehler = "";
+        let flavourchecked = 0;
+        let ContainerCheck = 0;
+        let optionChecked = 0;
+        let adressChecked = 1;
+        for (let d = 0; d < 6; d++) {
+            if (input[d].name == "Postleitzahl") {
+                if (Number(input[d].value) < 10000 || Number(input[d].value) > 99999) {
+                    adressChecked = 0;
+                }
+            }
+            if (input[d].value == "") {
+                adressChecked = 0;
+            }
         }
-        else if (deliver == "") {
-            alert("Please select delivery Option.");
+        for (let z = 0; z < input.length; z++) {
+            if (input[z].name == "Container" && input[z].checked == true) {
+                ContainerCheck = 1;
+            }
+            if (input[z].name == "Flavours" && Number(input[z].value) > 0) {
+                flavourchecked = 1;
+            }
+            if (input[z].name == "Delivery" && input[z].checked == true) {
+                optionChecked = 1;
+            }
         }
-        else if (DelAdress == "") {
-            alert("Please fill out the Delivery Form.");
+        if (adressChecked == 0) {
+            fehler += "Adress Angaben" + String.fromCharCode(13);
         }
-        else if (DelName == "") {
-            alert("Please fill out the Delivery Form.");
+        if (flavourchecked == 0) {
+            fehler += "Flavour " + String.fromCharCode(13);
         }
-        else if (DelTown == "") {
-            alert("Please fill out the Delivery Form.");
+        if (ContainerCheck == 0) {
+            fehler += "Container " + String.fromCharCode(13);
         }
-        else if (DelPostle == "") {
-            alert("The Default Postle of 78120 will be selected, if the Field is left Empty.");
+        if (optionChecked == 0) {
+            fehler += "Delivery " + String.fromCharCode(13);
+        }
+        if (fehler != "") {
+            alert("Folgende Angaben fehlen: " + String.fromCharCode(13) + fehler);
         }
         else {
-            alert("Order recieved.");
+            alert("Vielen Dank für Ihre order");
         }
     }
 })(EisDealer || (EisDealer = {}));
