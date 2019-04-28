@@ -45,37 +45,34 @@ var EisDealer;
         document.getElementById("Toppi").innerHTML = "";
         document.getElementById("Deliv").innerHTML = "";
         for (let w = 0; w < input.length; w++) {
-            if (input[w].name != "") {
-                if (input[w].name == "Container" && input[w].checked == true) {
-                    let location = document.createElement("li");
-                    location.innerHTML = `${input[w].id}`;
-                    document.getElementById("Conta").appendChild(location);
+            if (input[w].name == "Container" && input[w].checked == true) {
+                let location = document.createElement("li");
+                location.innerHTML = `${input[w].id}`;
+                document.getElementById("Conta").appendChild(location);
+            }
+            ;
+            if (input[w].name == "Flavours") {
+                let location = document.createElement("li");
+                if (input[w].value != "0") {
+                    location.innerHTML = `${input[w].value}x ${input[w].id} ${Number(Number(input[w].value) * Number(input[w].getAttribute("price"))).toFixed(2)} €`;
+                    sum += Number(input[w].value) * Number(input[w].getAttribute("price"));
+                    document.getElementById("Flavo").appendChild(location);
                 }
                 ;
-                if (input[w].name == "Flavours") {
-                    let location = document.createElement("li");
-                    if (input[w].value != "0") {
-                        location.innerHTML = `${input[w].value}x ${input[w].id} ${Number(Number(input[w].value) * Number(input[w].getAttribute("price"))).toFixed(2)} €`;
-                        sum += Number(input[w].value) * Number(input[w].getAttribute("price"));
-                        document.getElementById("Flavo").appendChild(location);
-                    }
-                    ;
-                }
-                ;
-                if (input[w].name == "Topping" && input[w].checked == true) {
-                    let location = document.createElement("li");
-                    location.innerHTML = `${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
-                    sum += Number(input[w].getAttribute("price"));
-                    document.getElementById("Toppi").appendChild(location);
-                }
-                ;
-                if (input[w].name == "Delivery" && input[w].checked == true) {
-                    let location = document.createElement("li");
-                    location.innerHTML = `${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
-                    sum += Number(input[w].getAttribute("price"));
-                    document.getElementById("Deliv").appendChild(location);
-                }
-                ;
+            }
+            ;
+            if (input[w].name == "Topping" && input[w].checked == true) {
+                let location = document.createElement("li");
+                location.innerHTML = `${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
+                sum += Number(input[w].getAttribute("price"));
+                document.getElementById("Toppi").appendChild(location);
+            }
+            ;
+            if (input[w].name == "Delivery" && input[w].checked == true) {
+                let location = document.createElement("li");
+                location.innerHTML = `${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
+                sum += Number(input[w].getAttribute("price"));
+                document.getElementById("Deliv").appendChild(location);
             }
             ;
         }
@@ -86,11 +83,11 @@ var EisDealer;
     function check(_event) {
         let fehler = "";
         let flavourchecked = 0;
-        let ContainerCheck = 0;
+        let containerCheck = 0;
         let optionChecked = 0;
         let adressChecked = 1;
         for (let d = 0; d < 6; d++) {
-            if (input[d].name == "Postleitzahl") {
+            if (input[d].name == "Postle") {
                 if (Number(input[d].value) < 10000 || Number(input[d].value) > 99999) {
                     adressChecked = 0;
                 }
@@ -101,7 +98,7 @@ var EisDealer;
         }
         for (let z = 0; z < input.length; z++) {
             if (input[z].name == "Container" && input[z].checked == true) {
-                ContainerCheck = 1;
+                containerCheck = 1;
             }
             if (input[z].name == "Flavours" && Number(input[z].value) > 0) {
                 flavourchecked = 1;
@@ -116,17 +113,17 @@ var EisDealer;
         if (flavourchecked == 0) {
             fehler += "Flavour " + String.fromCharCode(13);
         }
-        if (ContainerCheck == 0) {
+        if (containerCheck == 0) {
             fehler += "Container " + String.fromCharCode(13);
         }
         if (optionChecked == 0) {
             fehler += "Delivery " + String.fromCharCode(13);
         }
         if (fehler != "") {
-            alert("Folgende Angaben fehlen: " + String.fromCharCode(13) + fehler);
+            alert("Missing Values: " + String.fromCharCode(13) + fehler);
         }
         else {
-            alert("Vielen Dank für Ihre order");
+            alert("Thanks for your Order");
         }
     }
 })(EisDealer || (EisDealer = {}));

@@ -60,7 +60,6 @@ namespace EisDealer {
             document.getElementById("Deliv").innerHTML = "";
 
             for (let w: number = 0; w < input.length; w++){
-                if (input[w].name != ""){
                     if(input[w].name == "Container" && input[w].checked == true){
                         let location =document.createElement("li");
                         location.innerHTML=`${input[w].id}`;
@@ -89,7 +88,6 @@ namespace EisDealer {
                         sum += Number(input[w].getAttribute("price"));
                         document.getElementById("Deliv").appendChild(location);
                     };
-                };
             };
 
             document.getElementById("price").innerHTML = String(sum.toFixed(2)) + " €";
@@ -100,12 +98,12 @@ namespace EisDealer {
   
             let fehler:string="";
             let flavourchecked:number=0;
-            let ContainerCheck:number=0;
+            let containerCheck:number=0;
             let optionChecked:number=0;
             let adressChecked:number=1;
                 
                 for(let d:number=0; d<6; d++){
-                    if(input[d].name == "Postleitzahl"){
+                    if(input[d].name == "Postle"){
                         if(Number(input[d].value) < 10000 || Number(input[d].value) > 99999){
                             adressChecked=0;
                         }
@@ -117,7 +115,7 @@ namespace EisDealer {
 
                 for(let z:number=0; z<input.length;z++){
                     if(input[z].name == "Container" && input[z].checked == true){
-                        ContainerCheck = 1;
+                        containerCheck = 1;
                     }
                     if(input[z].name == "Flavours" && Number(input[z].value) > 0){
                         flavourchecked=1;
@@ -135,7 +133,7 @@ namespace EisDealer {
                     fehler += "Flavour "+ String.fromCharCode(13);
                 }
 
-                if(ContainerCheck == 0){
+                if(containerCheck == 0){
                     fehler += "Container "+ String.fromCharCode(13);
                 }
 
@@ -144,11 +142,11 @@ namespace EisDealer {
                 }
                 
                 if(fehler!=""){
-                alert("Folgende Angaben fehlen: "+ String.fromCharCode(13) + fehler)
+                alert("Missing Values: "+ String.fromCharCode(13) + fehler)
                 }
 
                 else{
-                alert("Vielen Dank für Ihre order")
+                alert("Thanks for your Order")
                 }
             }    
         
