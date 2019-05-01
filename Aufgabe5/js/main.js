@@ -84,29 +84,30 @@ var EisDealer;
         let error = "";
         let flavourchecked = 0;
         let containerCheck = 0;
+        let adressCheck = 0;
         let optionChecked = 0;
         let adressChecked = 0;
         for (let t = 0; t < input.length; t++) {
             if (input[t].name == "Name" && input[t].value != "") {
-                containerCheck += 1;
+                adressCheck += 1;
             }
             if (input[t].name == "Street" && input[t].value != "") {
-                containerCheck += 1;
+                adressCheck += 1;
             }
             if (input[t].name == "HouseID" && input[t].value != "") {
-                containerCheck += 1;
+                adressCheck += 1;
             }
             if (input[t].name == "Postle" && input[t].value != "") {
-                containerCheck += 1;
+                adressCheck += 1;
             }
             if (input[t].name == "Town" && input[t].value != "") {
-                containerCheck += 1;
+                adressCheck += 1;
             }
-            if (containerCheck == 5) {
-                containerCheck = 1;
+            if (adressCheck == 5) {
+                adressChecked = 1;
             }
             else {
-                containerCheck = 0;
+                adressChecked = 0;
             }
             if (input[t].name == "Container" && input[t].checked == true) {
                 containerCheck = 1;

@@ -99,6 +99,7 @@ namespace EisDealer {
             let  error:string="";
             let flavourchecked:number=0;
             let containerCheck:number=0;
+            let adressCheck:number=0;
             let optionChecked:number=0;
             let adressChecked:number=0;
                 
@@ -106,26 +107,26 @@ namespace EisDealer {
 
                 for(let t:number=0; t<input.length;t++){
                     if(input[t].name == "Name" && input[t].value != ""){
-                        containerCheck += 1;
+                        adressCheck += 1;
                     }
                     if(input[t].name == "Street" && input[t].value != ""){
-                        containerCheck += 1;
+                        adressCheck += 1;
                     }
                     if(input[t].name == "HouseID" && input[t].value != ""){
-                        containerCheck += 1;
+                        adressCheck += 1;
                     }
                     if(input[t].name == "Postle" && input[t].value != ""){
-                        containerCheck += 1;
+                        adressCheck += 1;
                     }
                     if(input[t].name == "Town" && input[t].value != ""){
-                        containerCheck += 1;
+                        adressCheck += 1;
                     }
 
-                    if (containerCheck == 5){
-                        containerCheck = 1;
+                    if (adressCheck == 5){
+                        adressChecked = 1;
                     }
                     else{
-                        containerCheck = 0;
+                        adressChecked = 0;
                     }
 
                     if(input[t].name == "Container" && input[t].checked == true){
