@@ -21,7 +21,7 @@ namespace EisDealer {
 
     function  writeHTML(_theboxes:Category):void{
 
-        document.getElementById('theBoxes').innerHTML="";
+        document.getElementById('theboxes').innerHTML="";
         document.getElementById('order').innerHTML=""; // This fixes a bug, that causes the writeHTML to execute the for-loop twice ... somehow
 
         for(let key in _theboxes){
@@ -43,7 +43,7 @@ namespace EisDealer {
             }
             box.setAttribute("id", key);
             box.innerHTML=write;
-            document.getElementById('theBoxes').appendChild(box);
+            document.getElementById('theboxes').appendChild(box);
         }
            
     }
