@@ -22,34 +22,44 @@
 </header>
 
 <main>
-    <div id=theboxes>
-    </div>
-    <fieldset id="adress">
-        <legend>Adress</legend>
-        <label for="name">Name</label>
-        <input type="text" name="Name" id="name" placeholder="Full Name" required/>
-        <br>
-        <label for="street">Street</label>
-        <input type="text" name="Street" id="street" placeholder="Streetname" required/>
-        <label for="housenr">Housenumber</label>
-        <input type="text" name="HouseID" id="houseID" placeholder="01" pattern="[0-9]{1-2}">
-        <br>
-        <label for="postle">Postle</label>
-        <input type="text" name="Postle" id="postle" placeholder="78120" pattern="[0-9]{5}">
-        <label for="town">Town</label>
-        <input type="text" name="Town" id="town" placeholder="Furtwangen" required/>
-    </fieldset>
 
-    <aside>
-        <h3>Your Order</h3>
-        <div id=order></div>
-        <hr>
-        <div id="sum">
-            <p>Summe</p>
-            <p id="price"></p>
-            <button id="check">Confirm Order</button>
+    <form id="formID" action="https://eia2-kathrin.herokuapp.com/" method="get" target="_blank"> 
+
+        <div id=theboxes>
         </div>
-    </aside>
+
+        <fieldset id="adress">
+            <legend>Adress</legend>
+            <label for="name">Name</label>
+            <input type="text" name="Name" id="name" placeholder="Full Name" required/>
+            
+            <br>
+
+            <label for="street">Street</label>
+            <input type="text" name="Street" id="street" placeholder="Streetname" required/>
+            <label for="housenr">Housenumber</label>
+            <input type="text" name="HouseID" id="houseID" placeholder="01" pattern="[0-9]{1-2}">
+        
+            <br>
+            
+            <label for="postle">Postle</label>
+            <input type="text" name="Postle" id="postle" placeholder="78120" pattern="[0-9]{5}">
+            <label for="town">Town</label>
+            <input type="text" name="Town" id="town" placeholder="Furtwangen" required/>
+        </fieldset>
+
+        <aside>
+            <h3>Your Order</h3>
+            <div id=order></div>
+            <hr>
+            <div id="sum">
+                <p>Summe</p>
+                <p id="price"></p>
+                <button id="check">Confirm Order</button>
+            </div>
+        </aside>
+
+    </form>    
 
 </main>
 <footer>
