@@ -17,7 +17,6 @@ import * as Http from "http"; // Importiere alle Inhalte aus "http" als Typ Http
 
 	function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void { 	// Funktion handleRequest wird definiert. Übergabeparameter: _request und _response. Rückgabewert: None. 
 		console.log("I hear voices!"); 						// "I hear voices!" wird an die Console ausgegeben.
-		console.log (_request.url);
 		_response.setHeader("content-type", "text/html; charset=utf-8");							// Header-Werte für ein Header-Objekt wird festgelegt. Preexistierender Header-Wert wird ersetzt 
 		_response.setHeader("Access-Control-Allow-Origin", "*");									// Header-Wert für Access Control wird festgelet. "*" lässt jeden Origin zu (anstelle von <origin> für spezifische Origins oder "null" für keinen möglichen Origin)
 
