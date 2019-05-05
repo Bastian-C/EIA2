@@ -21,7 +21,7 @@ namespace EisDealer {
 
     function  writeHTML(_theboxes:Category):void{
 
-        document.getElementById('theboxes').innerHTML="";
+        document.getElementById('theBoxes').innerHTML="";
         document.getElementById('order').innerHTML=""; // This fixes a bug, that causes the writeHTML to execute the for-loop twice ... somehow
 
         for(let key in _theboxes){
@@ -37,13 +37,13 @@ namespace EisDealer {
             
             let write=`<legende>${key}</legende><br>`;
             for(let b:number=0; b<category.length; b++){
-               write += `<input type="${category[b].type}" name="${category[b].category}" id="${category[b].called}" price="${category[b].price}" min="${category[b].min}" max="${category[b].max}" step="${category[b].step}" value="0">
+               write += `<input type="${category[b].type}" name="${category[b].called}" id="${category[b].called}" price="${category[b].price}" min="${category[b].min}" max="${category[b].max}" step="${category[b].step}" value="${category[b].value}">
                     <label for="${category[b].called}">${category[b].called} ${category[b].price.toFixed(2)} €</label>
                     <br>`;
             }
             box.setAttribute("id", key);
             box.innerHTML=write;
-            document.getElementById('theboxes').appendChild(box);
+            document.getElementById('theBoxes').appendChild(box);
         }
            
     }
@@ -60,13 +60,13 @@ namespace EisDealer {
             document.getElementById("Deliv").innerHTML = "";
 
             for (let w: number = 0; w < input.length; w++){
-                    if(input[w].name == "Container" && input[w].checked == true){
+                    if(input[w].value == "Container" && input[w].checked == true){
                         let location =document.createElement("li");
                         location.innerHTML=`${input[w].id}`;
                         document.getElementById("Conta").appendChild(location);
                     };
 
-                    if(input[w].name == "Flavours"){
+                    if(input[w].type == "number"){
                         let location =document.createElement("li");
                         if (input[w].value != "0"){
                             location.innerHTML=`${input[w].value}x ${input[w].id} ${Number(Number(input[w].value) * Number(input[w].getAttribute("price"))).toFixed(2)} €`;
@@ -75,14 +75,14 @@ namespace EisDealer {
                         };
                     };
 
-                    if(input[w].name == "Topping" && input[w].checked == true){
+                    if(input[w].value == "Topping" && input[w].checked == true){
                         let location =document.createElement("li");
                         location.innerHTML=`${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
                         sum += Number(input[w].getAttribute("price"));
                         document.getElementById("Toppi").appendChild(location);
                     };
 
-                    if(input[w].name == "Delivery" && input[w].checked == true){
+                    if(input[w].value == "Delivery" && input[w].checked == true){
                         let location =document.createElement("li");
                         location.innerHTML=`${input[w].id} ${Number(input[w].getAttribute("price")).toFixed(2)} €`;
                         sum += Number(input[w].getAttribute("price"));
@@ -129,13 +129,13 @@ namespace EisDealer {
                         adressChecked = 0;
                     }
 
-                    if(input[t].name == "Container" && input[t].checked == true){
+                    if(input[t].value == "Container" && input[t].checked == true){
                         containerCheck = 1;
                     }
-                    if(input[t].name == "Flavours" && Number(input[t].value) > 0){
+                    if(input[t].type == "number" && Number(input[t].value) > 0){
                         flavourchecked=1;
                     }
-                    if(input[t].name == "Delivery" && input[t].checked == true){
+                    if(input[t].value == "Delivery" && input[t].checked == true){
                         optionChecked = 1;
                     }
                 }
