@@ -172,19 +172,19 @@ namespace EisDealer {
                 for (let i: number = 0; i < custonOrder.length; i++) {
         
                     if (custonOrder[i].name == "Container" && custonOrder[i].checked == true) {
-                        url += `${custonOrder[i].name}: ${custonOrder[i].value}&`;
+                        url += `${custonOrder[i].name}:${custonOrder[i].value}&`;
                     }
         
                     if (custonOrder[i].name == "Delivery" && custonOrder[i].checked == true) {
-                        url += `${custonOrder[i].name}: ${custonOrder[i].value}&`;
+                        url += `${custonOrder[i].name}:${custonOrder[i].value}&`;
                     }
         
                     if (custonOrder[i].type == "number" && Number(custonOrder[i].value) > 0) {
-                        url += `${custonOrder[i].value} scoops of: ${custonOrder[i].name}&`;
+                        url += `${custonOrder[i].value}scoops of:${custonOrder[i].name}&`;
                     }
         
                     if (custonOrder[i].type == "checkbox" && custonOrder[i].checked == true) {
-                        url += `${custonOrder[i].name}: ${custonOrder[i].value}&`;
+                        url += `${custonOrder[i].name}:${custonOrder[i].value}&`;
                     }
 
                 }

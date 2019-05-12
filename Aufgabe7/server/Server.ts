@@ -30,6 +30,6 @@ import * as Url from "url";
 		_response.write("<p>" + key + url.query[key] + "</p> <br>");
 
 
-		_response.end();									// Der Server erhält eine Bestätigung, dass der request vollständig ist.
+		//_response.end();									// Der Server erhält eine Bestätigung, dass der request vollständig ist.
 	}														// Funktion handleRequest schließen
 }															// Namespace "L05 Server" schließen
