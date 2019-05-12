@@ -140,20 +140,20 @@ var EisDealer;
         }
     }
     function createURL() {
-        let custonOrder = document.getElementsByTagName("input");
+        let customOrder = document.getElementsByTagName("input");
         let url = "https://server-eia2-bc.herokuapp.com/?";
-        for (let i = 0; i < custonOrder.length; i++) {
-            if (custonOrder[i].name == "Container" && custonOrder[i].checked == true) {
-                url += `${custonOrder[i].name}:${custonOrder[i].value}&`;
+        for (let i = 0; i < customOrder.length; i++) {
+            if (customOrder[i].value == "Container" && customOrder[i].checked == true) {
+                url += `${customOrder[i].value}:${customOrder[i].value}&`;
             }
-            if (custonOrder[i].name == "Delivery" && custonOrder[i].checked == true) {
-                url += `${custonOrder[i].name}:${custonOrder[i].value}&`;
+            if (customOrder[i].value == "Delivery" && customOrder[i].checked == true) {
+                url += `${customOrder[i].value}:${customOrder[i].value}&`;
             }
-            if (custonOrder[i].type == "number" && Number(custonOrder[i].value) > 0) {
-                url += `${custonOrder[i].value}scoops of:${custonOrder[i].name}&`;
+            if (customOrder[i].type == "number" && Number(customOrder[i].value) > 0) {
+                url += `${customOrder[i].value}scoops of:${customOrder[i].name}&`;
             }
-            if (custonOrder[i].type == "checkbox" && custonOrder[i].checked == true) {
-                url += `${custonOrder[i].name}:${custonOrder[i].value}&`;
+            if (customOrder[i].type == "checkbox" && customOrder[i].checked == true) {
+                url += `${customOrder[i].name}:${customOrder[i].value}&`;
             }
         }
         sendRequestWithCustomData(url);
