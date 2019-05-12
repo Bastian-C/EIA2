@@ -21,15 +21,13 @@ import * as Url from "url";
 		_response.setHeader("content-type", "text/html; charset=utf-8");							// Header-Werte für ein Header-Objekt wird festgelegt. Preexistierender Header-Wert wird ersetzt 
 		_response.setHeader("Access-Control-Allow-Origin", "*");									// Header-Wert für Access Control wird festgelet. "*" lässt jeden Origin zu (anstelle von <origin> für spezifische Origins oder "null" für keinen möglichen Origin)
 
-		_response.write(_request.url);						// Vom Server wurde eine URL empfangen, die ins _response geschrieben wird 
-		console.log (_request.url);
 
 		_response.write("<h2>Order Recieved:</h2>");
 		let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
 		for (let key in url.query)
 		_response.write("<p>" + key + url.query[key] + "</p> <br>");
 
-		
+
 
 		//_response.end();									// Der Server erhält eine Bestätigung, dass der request vollständig ist.
 	}														// Funktion handleRequest schließen
