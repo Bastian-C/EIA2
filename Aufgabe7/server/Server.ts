@@ -29,6 +29,7 @@ import * as Url from "url";
 		for (let key in url.query)
 		_response.write("<p>" + key + url.query[key] + "</p> <br>");
 
+		
 
 		//_response.end();									// Der Server erhält eine Bestätigung, dass der request vollständig ist.
 	}														// Funktion handleRequest schließen
