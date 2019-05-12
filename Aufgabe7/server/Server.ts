@@ -1,4 +1,5 @@
 import * as Http from "http"; // Importiere alle Inhalte aus "http" als Typ Http.
+import * as Url from "url";
 
 {										// Erstelle Namespace "L05 Server"
 	console.log("Starting server");							// "Starting server" wird auf der Console ausgegeben.
@@ -22,6 +23,13 @@ import * as Http from "http"; // Importiere alle Inhalte aus "http" als Typ Http
 
 		_response.write(_request.url);						// Vom Server wurde eine URL empfangen, die ins _response geschrieben wird 
 		console.log (_request.url);
+
+		_response.write("<h2>Order Recieved:</h2>");
+		let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
+		for (let key in url.query)
+		_response.write("<p>" + key + url.query[key] + "</p> <br>");
+
+
 		_response.end();									// Der Server erhält eine Bestätigung, dass der request vollständig ist.
 	}														// Funktion handleRequest schließen
 }															// Namespace "L05 Server" schließen

@@ -14,6 +14,7 @@ var EisDealer;
             let fieldset = fieldsets[i];
             fieldset.addEventListener("change", theChange);
             document.getElementById("check").addEventListener("click", check);
+            document.getElementById("check").addEventListener("click", createURL);
         }
     }
     function writeHTML(_theboxes) {
@@ -136,6 +137,37 @@ var EisDealer;
         }
         else {
             alert("Thanks for your Order");
+        }
+    }
+    function createURL() {
+        let custonOrder = document.getElementsByTagName("input");
+        let url = "https://server-eia2-bc.herokuapp.com/?";
+        for (let i = 0; i < custonOrder.length; i++) {
+            if (custonOrder[i].name == "Container" && custonOrder[i].checked == true) {
+                url += `${custonOrder[i].name}: ${custonOrder[i].value}&`;
+            }
+            if (custonOrder[i].name == "Delivery" && custonOrder[i].checked == true) {
+                url += `${custonOrder[i].name}: ${custonOrder[i].value}&`;
+            }
+            if (custonOrder[i].type == "number" && Number(custonOrder[i].value) > 0) {
+                url += `${custonOrder[i].value} scoops of: ${custonOrder[i].name}&`;
+            }
+            if (custonOrder[i].type == "checkbox" && custonOrder[i].checked == true) {
+                url += `${custonOrder[i].name}: ${custonOrder[i].value}&`;
+            }
+        }
+        sendRequestWithCustomData(url);
+    }
+    function sendRequestWithCustomData(_url) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", _url, true);
+        xhr.addEventListener("readystatechange", handleStateChange);
+        xhr.send();
+    }
+    function handleStateChange(_event) {
+        let xhr = _event.target;
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            document.getElementById("recievedOrder").innerHTML = xhr.response;
         }
     }
 })(EisDealer || (EisDealer = {}));
