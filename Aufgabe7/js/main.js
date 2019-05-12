@@ -143,9 +143,6 @@ var EisDealer;
         let customOrder = document.getElementsByTagName("input");
         let url = "https://server-eia2-bc.herokuapp.com/?";
         for (let i = 0; i < customOrder.length; i++) {
-            if (customOrder[i].value == "Container" && customOrder[i].checked == true) {
-                url += `${customOrder[i].value}:${customOrder[i].name}&`;
-            }
             if (customOrder[i].type == "radio" && customOrder[i].checked == true) {
                 url += `${customOrder[i].value}:${customOrder[i].name}&`;
             }
