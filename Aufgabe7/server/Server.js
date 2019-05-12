@@ -22,7 +22,7 @@ const Url = require("url");
         let url = Url.parse(_request.url, true);
         for (let key in url.query)
             _response.write("<p>" + key + url.query[key] + "</p> <br>");
-        //_response.end();									// Der Server erhält eine Bestätigung, dass der request vollständig ist.
+        _response.end(); // Der Server erhält eine Bestätigung, dass der request vollständig ist.
     } // Funktion handleRequest schließen
 } // Namespace "L05 Server" schließen
 //# sourceMappingURL=Server.js.map
