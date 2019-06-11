@@ -1,26 +1,15 @@
+namespace Aufgabe11 {
 document.addEventListener("DOMContentLoaded", init);
+
 export let crc: CanvasRenderingContext2D;
 export let canvas: HTMLCanvasElement;
-let fischArray: Fische[] = [];
-let tintenfischArray: Tintenfische[] = [];
-let kleineBlasenArray: KleineLuftblasen[] = [];
+let theRightFishArray: theRightFish[] = [];
+let theLeftFishArray: theLeftFish[] = [];
+let bubbleArray: theBubble[] = [];
 let fps: number = 30;
 let imageData: ImageData;
 
-//_------------------------------------------------------------------------
 
-export class Fische {
-    x: number;
-    y: number;
-    dx: number;
-}
-
-export class Tintenfische {
-    x: number;
-    y: number;
-    dx: number;
-}
-//_------------------------------------------------------------------------
 
 function init(): void {
     canvas = document.getElementsByTagName("canvas")[0];
@@ -28,38 +17,69 @@ function init(): void {
 
     drawBackground()
 
-    for (let i: number = 0; i < 5; i++) {
+    imageData = crc.getImageData(0, 0, canvas.width, canvas.height);
+
+    for (let i: number = 0; i < 10; i++) {
         let x: number = Math.random() * canvas.width;
         let y: number = Math.random() * canvas.height;
-        let rightFishSpeed: number = Math.random() * 10 - 5;
+        let rightFishSpeed: number = (Math.random() * 4 + 3);
 
-        let fisch: Fische;
-        fisch = new Fische();
-        fisch.x = x;
-        fisch.y = y;
-        fisch.dx = rightFishSpeed;
-        fischArray.push(fisch);
-
-        drawRightFish(x, y);
+        let rightFish: theRightFish;
+        rightFish = new theRightFish();
+        rightFish.x = x;
+        rightFish.y = y;
+        rightFish.dx = rightFishSpeed;
+        theRightFishArray.push(rightFish);
+        rightFish.draw();
     }
 
-    for (let i: number = 0; i < 5; i++) {
+    for (let i: number = 0; i < 7; i++) {
         let x: number = Math.random() * canvas.width;
         let y: number = Math.random() * canvas.height;
-        let lefttFishSpeed: number = Math.random() * 10 - 5;
+        let leftFishSpeed: number = Math.random() * -5 - 2  ;
 
-
-
-        drawLeftFish(x, y);
+        let leftFish: theLeftFish;
+        leftFish = new theLeftFish();
+        leftFish.x = x;
+        leftFish.y = y;
+        leftFish.dx = leftFishSpeed;
+        theLeftFishArray.push(leftFish);
+        leftFish.draw();
     }
 
                                 
-    for (let i: number = 0; i < 15; i++) {
+    for (let i: number = 0; i < 30; i++) {
         let x: number = Math.random() * canvas.width;
         let y: number = Math.random() * canvas.height;
-        drawBubbles(x, y);
+        let bubbleSpeed: number = Math.random() * -3 - 1;
+
+        let bubble: theBubble;
+        bubble = new theBubble();
+        bubble.x = x;
+        bubble.y = y;
+        bubble.dy = bubbleSpeed;
+        bubbleArray.push(bubble);
+        bubble.draw();
+    }
+    update()
+}
+
+function update(): void {
+    window.setTimeout(update, 1000 / fps);
+    crc.clearRect(0, 0, canvas.width, canvas.height);
+    crc.putImageData(imageData, 0, 0);
+
+    for (let i: number = 0; i < theRightFishArray.length; i++) {
+        theRightFishArray[i].update();
     }
 
+    for (let i: number = 0; i < theLeftFishArray.length; i++) {
+        theLeftFishArray[i].update();
+    }
+
+    for (let i: number = 0; i < bubbleArray.length; i++) {
+        bubbleArray[i].update();
+    }
 }
 
 function drawBackground(){
@@ -116,14 +136,6 @@ function drawGround(): void {
     crc.fill(ground);
 }
 
-function drawBubbles(_x: number, _y: number): void {
-    let bubble: Path2D = new Path2D();
-    bubble.arc(_x, _y, Math.random() * 7+3, 0, 2 * Math.PI);
-    crc.strokeStyle = "#bfecffef";
-    crc.stroke(bubble);
-    crc.fillStyle = "#8494FF61";
-    crc.fill(bubble);
-}
 
 function drawRock(_x: number, _y: number): void {
     let theRock: Path2D = new Path2D();
@@ -136,51 +148,4 @@ function drawRock(_x: number, _y: number): void {
     crc.fill(theRock);
 }
 
-function drawRightFish(_x: number, _y: number): void {
-    let theBody: Path2D = new Path2D();
-    theBody.ellipse(_x, _y, 20, 35, 1.7, 0, 2 * Math.PI);
-    crc.fillStyle = "#55BE84";
-    crc.fill(theBody);
-    crc.strokeStyle = "#209F5D";
-    crc.stroke(theBody);
-
-    let fin: Path2D = new Path2D();
-    fin.moveTo(_x - 35, _y - 5);
-    fin.lineTo(_x - 75, _y + 15);
-    fin.lineTo(_x - 70, _y - 10);
-    crc.fillStyle = "#CA2146";
-    crc.fill(fin);
-    crc.strokeStyle = "#80223B";
-    crc.stroke(fin);
-
-    let eye: Path2D = new Path2D();
-    eye.arc(_x + 20, _y - 1, 6, 0, 2 * Math.PI);
-    crc.fillStyle = "#E6FFDA";
-    crc.fill(eye);
-
 }
-
-function drawLeftFish(_x: number, _y: number): void {
-    let theBody: Path2D = new Path2D();
-    theBody.ellipse(_x, _y, 20, 35, 1.7, 0, 2 * Math.PI);
-    crc.fillStyle = "#e27948ef";
-    crc.fill(theBody);
-    crc.strokeStyle = "#eca17fef";
-    crc.stroke(theBody);
-
-    let fin: Path2D = new Path2D();
-    fin.moveTo(_x + 35, _y + 3);
-    fin.lineTo(_x + 75, _y - 15);
-    fin.lineTo(_x + 70, _y + 30);
-    crc.fillStyle = "#E7D900";
-    crc.fill(fin);
-    crc.strokeStyle = "#BEA500";
-    crc.stroke(fin);
-
-    let eye: Path2D = new Path2D();
-    eye.arc(_x - 20, _y - 3, 3, 0, 2 * Math.PI);
-    crc.fillStyle = "#3C0038";
-    crc.fill(eye);
-
-}
-
