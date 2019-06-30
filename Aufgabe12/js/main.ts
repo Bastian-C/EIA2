@@ -1,4 +1,4 @@
-namespace Aufgabe11 {
+namespace Aufgabe12 {
 document.addEventListener("DOMContentLoaded", init);
 
 export let crc: CanvasRenderingContext2D;
@@ -6,6 +6,7 @@ export let canvas: HTMLCanvasElement;
 let theRightFishArray: theRightFish[] = [];
 let theLeftFishArray: theLeftFish[] = [];
 let bubbleArray: theBubble[] = [];
+let foodArray: theFood[] = [];
 let fps: number = 30;
 let imageData: ImageData;
 
@@ -14,6 +15,7 @@ let imageData: ImageData;
 function init(): void {
     canvas = document.getElementsByTagName("canvas")[0];
     crc = canvas.getContext("2d");
+    canvas.addEventListener("click", placeFood);
 
     drawBackground()
 
@@ -80,6 +82,22 @@ function update(): void {
     for (let i: number = 0; i < bubbleArray.length; i++) {
         bubbleArray[i].update();
     }
+
+        let bottomFoodArray:number[] = [];
+
+    for (let i: number = 0; i < foodArray.length; i++) {
+        if (foodArray[i].y = canvas.height){
+            bottomFoodArray.push(i);
+        }
+        foodArray[i].update();
+    }
+
+    for (let i: number = bottomFoodArray.length; i > 0; i--) {
+
+        let r:number = i - 1;
+        foodArray.splice(bottomFoodArray[r], 1);
+    }
+
 }
 
 function drawBackground(){
@@ -148,4 +166,17 @@ function drawRock(_x: number, _y: number): void {
     crc.fill(theRock);
 }
 
+function placeFood(_event: MouseEvent): void {
+    console.log("Click");
+    let xClick: number =  _event.clientX;
+    let yClick: number =  _event.clientY;
+    let speedFood: number = Math.random() * -3 - 1;
+
+    let crisp: theFood = new theFood(xClick, yClick, speedFood);
+
+    foodArray.push(crisp);
+    crisp.draw();
+    update();
 }
+}
+

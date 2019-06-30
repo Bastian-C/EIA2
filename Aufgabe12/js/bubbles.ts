@@ -1,4 +1,4 @@
-namespace Aufgabe11 {
+namespace Aufgabe12 {
     export class theBubble {
         x: number;
         y: number;
