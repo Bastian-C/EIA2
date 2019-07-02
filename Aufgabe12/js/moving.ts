@@ -6,11 +6,9 @@ namespace Aufgabe12 {
         dy: number;
 
         constructor(){
-//
         }
 
         draw(): void {
-//
         }
 
         update(): void {
@@ -19,7 +17,6 @@ namespace Aufgabe12 {
         }
 
         move(): void {
-//
         }
     }
 }

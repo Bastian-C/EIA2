@@ -144,8 +144,7 @@ function placeFood(_event: MouseEvent): void {
     console.log("Click");
     let xClick: number =  _event.clientX;
     let yClick: number =  _event.clientY;
-    let food: theFood;
-    food = new theFood();
+    let food: theFood = new theFood();
 
     food.x = xClick;
     food.y = yClick;
