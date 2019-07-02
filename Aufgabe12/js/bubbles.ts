@@ -1,13 +1,13 @@
 namespace Aufgabe12 {
-    export class theBubble {
-        x: number;
-        y: number;
-        dy: number;
-    
-        update(): void {
-            this.move();
-            this.draw();
-            }
+    export class theBubble extends moving {
+
+        constructor(){
+            super();
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.dy = Math.random() * -3 - 1;
+            this.dx = 0;
+        }
         
         move(): void {
             this.y += this.dy;

@@ -1,8 +1,13 @@
 namespace Aufgabe12 {
-    export class theRightFish {
-        x: number;
-        y: number;
-        dx: number;
+    export class theRightFish extends moving {
+
+        constructor(){
+            super();
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.dx = (Math.random() * 4 + 3);
+            this.dy = 0;
+        }
     
         update(): void {
             this.move();
@@ -15,6 +20,7 @@ namespace Aufgabe12 {
                 this.x = 0;
             }
         }
+        
     
         draw(): void {
             let theBody: Path2D = new Path2D();

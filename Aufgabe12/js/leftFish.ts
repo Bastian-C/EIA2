@@ -1,13 +1,13 @@
 namespace Aufgabe12 {
-    export class theLeftFish {
-        x: number;
-        y: number;
-        dx: number;
-    
-        update(): void {
-            this.move();
-            this.draw();
-            }
+    export class theLeftFish extends moving {
+
+        constructor(){    
+            super();
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.dx = Math.random() * -5 - 2  ;
+            this.dy = 0;
+        }
     
         move(): void {
             this.x += this.dx;

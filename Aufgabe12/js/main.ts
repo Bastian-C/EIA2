@@ -22,44 +22,19 @@ function init(): void {
     imageData = crc.getImageData(0, 0, canvas.width, canvas.height);
 
     for (let i: number = 0; i < 10; i++) {
-        let x: number = Math.random() * canvas.width;
-        let y: number = Math.random() * canvas.height;
-        let rightFishSpeed: number = (Math.random() * 4 + 3);
-
-        let rightFish: theRightFish;
-        rightFish = new theRightFish();
-        rightFish.x = x;
-        rightFish.y = y;
-        rightFish.dx = rightFishSpeed;
+        let rightFish: theRightFish = new theRightFish();
         theRightFishArray.push(rightFish);
         rightFish.draw();
     }
 
     for (let i: number = 0; i < 7; i++) {
-        let x: number = Math.random() * canvas.width;
-        let y: number = Math.random() * canvas.height;
-        let leftFishSpeed: number = Math.random() * -5 - 2  ;
-
-        let leftFish: theLeftFish;
-        leftFish = new theLeftFish();
-        leftFish.x = x;
-        leftFish.y = y;
-        leftFish.dx = leftFishSpeed;
+        let leftFish: theLeftFish = new theLeftFish();
         theLeftFishArray.push(leftFish);
         leftFish.draw();
     }
-
-                                
+                     
     for (let i: number = 0; i < 30; i++) {
-        let x: number = Math.random() * canvas.width;
-        let y: number = Math.random() * canvas.height;
-        let bubbleSpeed: number = Math.random() * -3 - 1;
-
-        let bubble: theBubble;
-        bubble = new theBubble();
-        bubble.x = x;
-        bubble.y = y;
-        bubble.dy = bubbleSpeed;
+        let bubble: theBubble = new theBubble();
         bubbleArray.push(bubble);
         bubble.draw();
     }
@@ -141,7 +116,6 @@ function drawPlants(_x: number, _y: number): void {
 }
 
 function drawWater(): void {
-    let water: Path2D = new Path2D();
     crc.rect(0, 0, 900, 500);
     crc.fillStyle = "#573FFF";
     crc.fill();
@@ -170,13 +144,15 @@ function placeFood(_event: MouseEvent): void {
     console.log("Click");
     let xClick: number =  _event.clientX;
     let yClick: number =  _event.clientY;
-    let speedFood: number = Math.random() * -3 - 1;
+    let food: theFood;
+    food = new theFood();
 
-    let crisp: theFood = new theFood(xClick, yClick, speedFood);
+    food.x = xClick;
+    food.y = yClick;
 
-    foodArray.push(crisp);
-    crisp.draw();
-    update();
+    foodArray.push(food);
+    food.draw();
 }
+
 }
 

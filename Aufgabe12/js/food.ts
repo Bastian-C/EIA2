@@ -1,19 +1,11 @@
 namespace Aufgabe12 {
-    export class theFood {
-        x: number;
-        y: number;
-        dy: number;
-
-        constructor(_xC: number, _yC: number, _dyC: number) {
-            this.x = _xC;
-            this.y = _yC;
-            this.dy = _dyC;
-        }
+    export class theFood extends moving{
     
-        update(): void {
-            this.move();
-            this.draw();
-            }
+        constructor(){
+            super();
+            this.dy = Math.random() * 3 + 1;
+            this.dx = 0;
+        }
         
         move(): void {
             this.y -= this.dy;
