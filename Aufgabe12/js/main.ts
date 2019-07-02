@@ -7,6 +7,7 @@ let theRightFishArray: theRightFish[] = [];
 let theLeftFishArray: theLeftFish[] = [];
 let bubbleArray: theBubble[] = [];
 let foodArray: theFood[] = [];
+let bottomFoodArray:number[] = [];
 let fps: number = 30;
 let imageData: ImageData;
 
@@ -57,8 +58,6 @@ function update(): void {
     for (let i: number = 0; i < bubbleArray.length; i++) {
         bubbleArray[i].update();
     }
-
-        let bottomFoodArray:number[] = [];
 
     for (let i: number = 0; i < foodArray.length; i++) {
         if (foodArray[i].y = canvas.height){

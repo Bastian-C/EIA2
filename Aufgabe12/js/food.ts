@@ -8,10 +8,7 @@ namespace Aufgabe12 {
         }
         
         move(): void {
-            this.y -= this.dy;
-            if (this.y >= canvas.height){
-                this.y = canvas.height;
-                }
+            this.y += this.dy;
             }
         
         draw(): void {
