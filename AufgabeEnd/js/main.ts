@@ -5,6 +5,7 @@ export let crc: CanvasRenderingContext2D;
 export let canvas: HTMLCanvasElement;
 let theRightFishArray: theRightFish[] = [];
 let theLeftFishArray: theLeftFish[] = [];
+let playerFishArray: playerFish[] = [];
 let bubbleArray: theBubble[] = [];
 let foodArray: theFood[] = [];
 let bottomFoodArray:number[] = [];
@@ -38,6 +39,15 @@ function init(): void {
         let leftFish: theLeftFish = new theLeftFish(x,y,s);
         theLeftFishArray.push(leftFish);
         leftFish.draw();
+    }
+
+    for (let i: number = 0; i < 1; i++) {
+        let x:number = canvas.width/2;
+        let y:number = canvas.height/2;
+        let s:number = 0.8;
+        let thePlayerFish: playerFish = new playerFish(x,y,s);
+        playerFishArray.push(thePlayerFish);
+        thePlayerFish.draw();
     }
                      
     for (let i: number = 0; i < 30; i++) {
@@ -80,6 +90,10 @@ function update(): void {
 
     bottomFoodArray = [];
     console.log(foodArray)
+
+    for (let i: number = 0; i < playerFishArray.length; i++) {
+        playerFishArray[i].update();
+    }
 
 }
 

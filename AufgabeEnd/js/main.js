@@ -3,6 +3,7 @@ var Aufgabe12;
     document.addEventListener("DOMContentLoaded", init);
     let theRightFishArray = [];
     let theLeftFishArray = [];
+    let playerFishArray = [];
     let bubbleArray = [];
     let foodArray = [];
     let bottomFoodArray = [];
@@ -29,6 +30,14 @@ var Aufgabe12;
             let leftFish = new Aufgabe12.theLeftFish(x, y, s);
             theLeftFishArray.push(leftFish);
             leftFish.draw();
+        }
+        for (let i = 0; i < 1; i++) {
+            let x = Aufgabe12.canvas.width / 2;
+            let y = Aufgabe12.canvas.height / 2;
+            let s = 0.8;
+            let thePlayerFish = new Aufgabe12.playerFish(x, y, s);
+            playerFishArray.push(thePlayerFish);
+            thePlayerFish.draw();
         }
         for (let i = 0; i < 30; i++) {
             let bubble = new Aufgabe12.theBubble();
@@ -62,6 +71,9 @@ var Aufgabe12;
         }
         bottomFoodArray = [];
         console.log(foodArray);
+        for (let i = 0; i < playerFishArray.length; i++) {
+            playerFishArray[i].update();
+        }
     }
     function drawBackground() {
         drawWater();
