@@ -8,12 +8,56 @@ namespace Aufgabe12 {
             this.dx = 0;
             this.dy = 0;
             this.size = _size;
+            this.dLeft = false;
+            this.dRight = false;
+            this.dUp = false;
+            this.dDown = false;
         }
     
         move(): void {
             this.x += this.dx;
+            this.y += this.dy;
+            
             if (this.x + 80 < 0) {
                 this.x = canvas.width;
+                }
+
+            if (this.x > canvas.width + 80) {
+                this.x = 0;
+            }    
+
+            if (this.y < 0) {
+                this.y = 0;
+                }
+
+            if (this.y +50 > canvas.height) {
+                this.y = canvas.height - 50;
+                }    
+
+            if (this.dLeft == true && this.dx> -6) {
+                this.dx -= 0.5;
+                }
+            if (this.dRight == true && this.dx< 6) {
+                this.dx += 0.5;
+                }
+            if (this.dDown == true && this.dy< 4) {
+                this.dy += 0.1;
+                }
+            if (this.dUp == true && this.dy> -4) {
+                this.dy -= 0.1;
+                }
+
+            if (this.dRight == false && this.dx > 0) {
+                this.dx -= 0.03;
+                }
+            if (this.dLeft == false && this.dx < 0) {
+                this.dx += 0.03;
+                }
+            if (this.dUp == false && this.dy < 0) {
+                this.dy += 0.03;
+                }
+            if (this.dDown == false && this.dy > 0) {
+                this.dy -= 0.03;
                 }
             }
     
@@ -41,7 +85,7 @@ namespace Aufgabe12 {
                 crc.fill(eye);
             }
 
-            if(this.dx<0){
+            if(this.dx>=0){
                 let fin: Path2D = new Path2D();
                 fin.moveTo(this.x - 35*this.size, this.y + 3*this.size);
                 fin.lineTo(this.x - 75*this.size, this.y - 15*this.size);

@@ -13,12 +13,12 @@ let fps: number = 30;
 let imageData: ImageData;
 
 
-
 function init(): void {
     canvas = document.getElementsByTagName("canvas")[0];
     crc = canvas.getContext("2d");
     canvas.addEventListener("click", placeFood);
-
+    addEventListener("keydown", activateAcc);
+    addEventListener("keyup", deactivateAcc);
     drawBackground()
 
     imageData = crc.getImageData(0, 0, canvas.width, canvas.height);
@@ -89,7 +89,6 @@ function update(): void {
     }
 
     bottomFoodArray = [];
-    console.log(foodArray)
 
     for (let i: number = 0; i < playerFishArray.length; i++) {
         playerFishArray[i].update();
@@ -172,5 +171,38 @@ function placeFood(_event: MouseEvent): void {
     food.draw();
 }
 
+
+function activateAcc (_event:KeyboardEvent){
+    let key_press:number  = _event.which;
+    console.log("Down:"+key_press)
+    if(key_press==87){
+        playerFishArray[0].dUp=true;
+    }
+    if(key_press==65){
+        playerFishArray[0].dLeft=true;
+    }
+    if(key_press==83){
+        playerFishArray[0].dDown=true;
+    }
+    if(key_press==68){
+        playerFishArray[0].dRight=true;
+    }
+}
+function deactivateAcc (_event:KeyboardEvent){
+    let key_lift:number  = _event.which;
+    console.log("Up:"+key_lift)
+    if(key_lift==87){
+        playerFishArray[0].dUp=false;
+    }
+    if(key_lift==65){
+        playerFishArray[0].dLeft=false;
+    }
+    if(key_lift==83){
+        playerFishArray[0].dDown=false;
+    }
+    if(key_lift==68){
+        playerFishArray[0].dRight=false;
+    }
 }
 
+}

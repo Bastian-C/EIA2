@@ -13,6 +13,8 @@ var Aufgabe12;
         Aufgabe12.canvas = document.getElementsByTagName("canvas")[0];
         Aufgabe12.crc = Aufgabe12.canvas.getContext("2d");
         Aufgabe12.canvas.addEventListener("click", placeFood);
+        addEventListener("keydown", activateAcc);
+        addEventListener("keyup", deactivateAcc);
         drawBackground();
         imageData = Aufgabe12.crc.getImageData(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
         for (let i = 0; i < 10; i++) {
@@ -70,7 +72,6 @@ var Aufgabe12;
             foodArray.splice(bottomFoodArray[r], 1);
         }
         bottomFoodArray = [];
-        console.log(foodArray);
         for (let i = 0; i < playerFishArray.length; i++) {
             playerFishArray[i].update();
         }
@@ -136,6 +137,38 @@ var Aufgabe12;
         let food = new Aufgabe12.theFood(xClick, yClick);
         foodArray.push(food);
         food.draw();
+    }
+    function activateAcc(_event) {
+        let key_press = _event.which;
+        console.log("Down:" + key_press);
+        if (key_press == 87) {
+            playerFishArray[0].dUp = true;
+        }
+        if (key_press == 65) {
+            playerFishArray[0].dLeft = true;
+        }
+        if (key_press == 83) {
+            playerFishArray[0].dDown = true;
+        }
+        if (key_press == 68) {
+            playerFishArray[0].dRight = true;
+        }
+    }
+    function deactivateAcc(_event) {
+        let key_lift = _event.which;
+        console.log("Up:" + key_lift);
+        if (key_lift == 87) {
+            playerFishArray[0].dUp = false;
+        }
+        if (key_lift == 65) {
+            playerFishArray[0].dLeft = false;
+        }
+        if (key_lift == 83) {
+            playerFishArray[0].dDown = false;
+        }
+        if (key_lift == 68) {
+            playerFishArray[0].dRight = false;
+        }
     }
 })(Aufgabe12 || (Aufgabe12 = {}));
 //# sourceMappingURL=main.js.map

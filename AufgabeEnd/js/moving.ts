@@ -6,6 +6,11 @@ namespace Aufgabe12 {
         dy: number;
         size:number;
 
+        dLeft: Boolean;
+        dRight: Boolean;
+        dUp: Boolean;
+        dDown: Boolean;
+
         constructor(){
         }
 
