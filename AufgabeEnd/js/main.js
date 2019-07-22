@@ -75,6 +75,15 @@ var Aufgabe12;
         for (let i = 0; i < playerFishArray.length; i++) {
             playerFishArray[i].update();
         }
+        colide();
+    }
+    function colide() {
+        for (let i = 0; i < playerFishArray.length; i++) {
+            for (let n = 0; n < theLeftFishArray.length; n++) {
+            }
+            for (let n = 0; n < theLeftFishArray.length; n++) {
+            }
+        }
     }
     function drawBackground() {
         drawWater();

@@ -94,6 +94,19 @@ function update(): void {
         playerFishArray[i].update();
     }
 
+    colide()
+}
+
+function colide(){
+    for (let ix: number = 0; i < playerFishArray.length; i++) {
+
+        for (let n: number = 0; n < theLeftFishArray.length; n++) {
+        
+        }
+        for (let n: number = 0; n < theLeftFishArray.length; n++) {
+        
+        }
+    }
 }
 
 function drawBackground(){
