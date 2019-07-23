@@ -1,11 +1,12 @@
 namespace Aufgabe12 {
 document.addEventListener("DOMContentLoaded", init);
-
 export let crc: CanvasRenderingContext2D;
 export let canvas: HTMLCanvasElement;
 let theRightFishArray: theRightFish[] = [];
 let theLeftFishArray: theLeftFish[] = [];
 let playerFishArray: playerFish[] = [];
+let playerNameArray: string[] = [];
+let playerScoreArray: Number[] = [];
 let bubbleArray: theBubble[] = [];
 let foodArray: theFood[] = [];
 let bottomFoodArray:number[] = [];
@@ -14,6 +15,32 @@ let imageData: ImageData;
 
 
 function init(): void {
+
+    let playerNumberString:string = prompt("Please enter the amount of Players (1 or 2)","1");
+    while(playerNumberString!="1"&&playerNumberString!="2"){
+        alert("Either chose Singleplayer (1) or Multiplayer (2)")
+        playerNumberString = prompt("Please enter the amount of Players (1 or 2)","1");
+       }
+    let playerNumber:Number = parseInt(playerNumberString, 10);
+
+    let person1=prompt("Player 1: Please enter your name(Maximum limit 12)","Player1");
+    while(person1.length > 12){
+       alert("Keep the Playername to 12 chars or less")
+       person1 = prompt("Player 1: Please enter your name(Maximum limit 12)","Player1");
+      }
+    playerNameArray.push(person1);  
+    playerScoreArray.push(0);
+
+    if (playerNumber == 2){
+        let person2=prompt("Player 2: Please enter your name(Maximum limit 12)","Player2");
+        while(person2.length > 12){
+           alert("Keep the message length to 12 chars or less")
+           person2 = prompt("Player 2: Please enter your name(Maximum limit 12)","Player2");
+            }
+        playerNameArray.push(person2)
+        playerScoreArray.push(0);
+    }
+
     canvas = document.getElementsByTagName("canvas")[0];
     crc = canvas.getContext("2d");
     canvas.addEventListener("click", placeFood);
@@ -23,7 +50,7 @@ function init(): void {
 
     imageData = crc.getImageData(0, 0, canvas.width, canvas.height);
 
-    for (let i: number = 0; i < 10; i++) {
+    for (let i: number = 0; i < 14; i++) {
         let x:number = canvas.width;
         let y:number = Math.random() * canvas.height;
         let s:number = (Math.random() * 3+4)/10;
@@ -32,7 +59,7 @@ function init(): void {
         rightFish.draw();
     }
 
-    for (let i: number = 0; i < 7; i++) {
+    for (let i: number = 0; i < 10; i++) {
         let x:number = canvas.width;
         let y:number = Math.random() * canvas.height;
         let s:number = (Math.random() * 4+8)/10;
@@ -41,7 +68,7 @@ function init(): void {
         leftFish.draw();
     }
 
-    for (let i: number = 0; i < 1; i++) {
+    for (let i: number = 0; i < playerNumber; i++) {
         let x:number = canvas.width/2;
         let y:number = canvas.height/2;
         let s:number = 0.8;
@@ -59,9 +86,11 @@ function init(): void {
 }
 
 function update(): void {
-    window.setTimeout(update, 1000 / fps);
-    crc.clearRect(0, 0, canvas.width, canvas.height);
-    crc.putImageData(imageData, 0, 0);
+    if (playerFishArray.length>0){
+        window.setTimeout(update, 1000 / fps);
+        crc.clearRect(0, 0, canvas.width, canvas.height);
+        crc.putImageData(imageData, 0, 0);
+    }
 
     for (let i: number = 0; i < theRightFishArray.length; i++) {
         theRightFishArray[i].update();
@@ -91,21 +120,62 @@ function update(): void {
     bottomFoodArray = [];
 
     for (let i: number = 0; i < playerFishArray.length; i++) {
+        playerScoreArray[i]=(playerFishArray[i].size-1)*100;
         playerFishArray[i].update();
     }
 
     colide()
+
+    if (playerFishArray.length==0){
+        insert();
+    }    
 }
 
 function colide(){
-    for (let ix: number = 0; i < playerFishArray.length; i++) {
-
-        for (let n: number = 0; n < theLeftFishArray.length; n++) {
-        
+    for (let i: number = 0; i < playerFishArray.length; i++) {
+        let deletionArray:number[]=[];
+        for (let n: number = 0; n < theRightFishArray.length; n++) {
+            let distance:number = Math.sqrt( ( (playerFishArray[i].x-theRightFishArray[n].x) * (playerFishArray[i].x-theRightFishArray[n].x) ) + ( (playerFishArray[i].y-theRightFishArray[n].y) * (playerFishArray[i].y-theRightFishArray[n].y) ) )
+            let sizeDif:number = ( (playerFishArray[i].size * 25)+(theRightFishArray[n].size * 25) );
+            if (distance < sizeDif)
+            {
+                deletionArray.push(n);
+            }
         }
-        for (let n: number = 0; n < theLeftFishArray.length; n++) {
-        
+        if (deletionArray.length>0){
+            for (let d: number = deletionArray.length; d > 0; d--) {
+                let r:number = d - 1;
+                if(playerFishArray[i].size>=theRightFishArray[deletionArray[r]].size){
+                    playerFishArray[i].size += theRightFishArray[deletionArray[r]].size/10;
+                    theRightFishArray.splice(deletionArray[r], 1);
+                }
+                else{
+                    console.log("Game OVER!");
+                }
+            }    
         }
+        deletionArray=[];
+        for (let n: number = 0; n < theLeftFishArray.length; n++) {
+            let distance:number = Math.sqrt( ( (playerFishArray[i].x-theLeftFishArray[n].x) * (playerFishArray[i].x-theLeftFishArray[n].x) ) + ( (playerFishArray[i].y-theLeftFishArray[n].y) * (playerFishArray[i].y-theLeftFishArray[n].y) ) )
+            let sizeDif:number = ( (playerFishArray[i].size * 25)+(theLeftFishArray[n].size * 25) );
+            if (distance < sizeDif)
+            {
+                deletionArray.push(n);
+            }
+        }
+        if (deletionArray.length>0){
+            for (let d: number = deletionArray.length; d > 0; d--) {
+                let r:number = d - 1;
+                if(playerFishArray[i].size>=theLeftFishArray[deletionArray[r]].size){
+                    playerFishArray[i].size += theLeftFishArray[deletionArray[r]].size/10;
+                    theLeftFishArray.splice(deletionArray[r], 1);
+                }
+                else{
+                    console.log("Game OVER!");
+                }
+            }    
+        }
+        deletionArray=[];
     }
 }
 
@@ -187,7 +257,6 @@ function placeFood(_event: MouseEvent): void {
 
 function activateAcc (_event:KeyboardEvent){
     let key_press:number  = _event.which;
-    console.log("Down:"+key_press)
     if(key_press==87){
         playerFishArray[0].dUp=true;
     }
@@ -200,10 +269,21 @@ function activateAcc (_event:KeyboardEvent){
     if(key_press==68){
         playerFishArray[0].dRight=true;
     }
+    if(key_press==38&&playerNameArray.length==2){
+        playerFishArray[1].dUp=true;
+    }
+    if(key_press==37&&playerNameArray.length==2){
+        playerFishArray[1].dLeft=true;
+    }
+    if(key_press==40&&playerNameArray.length==2){
+        playerFishArray[1].dDown=true;
+    }
+    if(key_press==39&&playerNameArray.length==2){
+        playerFishArray[1].dRight=true;
+    }
 }
 function deactivateAcc (_event:KeyboardEvent){
     let key_lift:number  = _event.which;
-    console.log("Up:"+key_lift)
     if(key_lift==87){
         playerFishArray[0].dUp=false;
     }
@@ -216,6 +296,49 @@ function deactivateAcc (_event:KeyboardEvent){
     if(key_lift==68){
         playerFishArray[0].dRight=false;
     }
+    if(key_lift==38&&playerNameArray.length==2){
+        playerFishArray[1].dUp=false;
+    }
+    if(key_lift==37&&playerNameArray.length==2){
+        playerFishArray[1].dLeft=false;
+    }
+    if(key_lift==40&&playerNameArray.length==2){
+        playerFishArray[1].dDown=false;
+    }
+    if(key_lift==39&&playerNameArray.length==2){
+        playerFishArray[1].dRight=false;
+    }
 }
+
+//--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
+
+// Under Construction. See 9
+let serverAddress: string = "https://server-eia2-bc.herokuapp.com/";
+
+    function insert(): void {
+        let query: string = "command=insert";
+        for (let i: number = 0; i < playerNameArray.length; i++) {
+            query += "&player"+i+"=" + playerNameArray[i];
+            query += "&score"+i+"=" + playerScoreArray[i];
+        }
+        console.log(query);
+        sendRequest(query, handleInsertResponse);
+    }
+
+    function sendRequest(_query: string, _callback: EventListener): void {
+        let xhr: XMLHttpRequest = new XMLHttpRequest();
+        xhr.open("GET", serverAddress + "?" + _query, true);
+        xhr.addEventListener("readystatechange", _callback);
+        xhr.send();
+    }
+
+    function handleInsertResponse(_event: ProgressEvent): void {
+        let xhr: XMLHttpRequest = (<XMLHttpRequest>_event.target);
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            alert(xhr.response);
+        }
+    }
+
+
 
 }

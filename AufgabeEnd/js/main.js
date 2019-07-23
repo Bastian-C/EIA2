@@ -4,12 +4,36 @@ var Aufgabe12;
     let theRightFishArray = [];
     let theLeftFishArray = [];
     let playerFishArray = [];
+    let playerNameArray = [];
+    let playerScoreArray = [];
     let bubbleArray = [];
     let foodArray = [];
     let bottomFoodArray = [];
     let fps = 30;
     let imageData;
     function init() {
+        let playerNumberString = prompt("Please enter the amount of Players (1 or 2)", "1");
+        while (playerNumberString != "1" && playerNumberString != "2") {
+            alert("Either chose Singleplayer (1) or Multiplayer (2)");
+            playerNumberString = prompt("Please enter the amount of Players (1 or 2)", "1");
+        }
+        let playerNumber = parseInt(playerNumberString, 10);
+        let person1 = prompt("Player 1: Please enter your name(Maximum limit 12)", "Player1");
+        while (person1.length > 12) {
+            alert("Keep the Playername to 12 chars or less");
+            person1 = prompt("Player 1: Please enter your name(Maximum limit 12)", "Player1");
+        }
+        playerNameArray.push(person1);
+        playerScoreArray.push(0);
+        if (playerNumber == 2) {
+            let person2 = prompt("Player 2: Please enter your name(Maximum limit 12)", "Player2");
+            while (person2.length > 12) {
+                alert("Keep the message length to 12 chars or less");
+                person2 = prompt("Player 2: Please enter your name(Maximum limit 12)", "Player2");
+            }
+            playerNameArray.push(person2);
+            playerScoreArray.push(0);
+        }
         Aufgabe12.canvas = document.getElementsByTagName("canvas")[0];
         Aufgabe12.crc = Aufgabe12.canvas.getContext("2d");
         Aufgabe12.canvas.addEventListener("click", placeFood);
@@ -17,7 +41,7 @@ var Aufgabe12;
         addEventListener("keyup", deactivateAcc);
         drawBackground();
         imageData = Aufgabe12.crc.getImageData(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 14; i++) {
             let x = Aufgabe12.canvas.width;
             let y = Math.random() * Aufgabe12.canvas.height;
             let s = (Math.random() * 3 + 4) / 10;
@@ -25,7 +49,7 @@ var Aufgabe12;
             theRightFishArray.push(rightFish);
             rightFish.draw();
         }
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 10; i++) {
             let x = Aufgabe12.canvas.width;
             let y = Math.random() * Aufgabe12.canvas.height;
             let s = (Math.random() * 4 + 8) / 10;
@@ -33,7 +57,7 @@ var Aufgabe12;
             theLeftFishArray.push(leftFish);
             leftFish.draw();
         }
-        for (let i = 0; i < 1; i++) {
+        for (let i = 0; i < playerNumber; i++) {
             let x = Aufgabe12.canvas.width / 2;
             let y = Aufgabe12.canvas.height / 2;
             let s = 0.8;
@@ -49,9 +73,11 @@ var Aufgabe12;
         update();
     }
     function update() {
-        window.setTimeout(update, 1000 / fps);
-        Aufgabe12.crc.clearRect(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
-        Aufgabe12.crc.putImageData(imageData, 0, 0);
+        if (playerFishArray.length > 0) {
+            window.setTimeout(update, 1000 / fps);
+            Aufgabe12.crc.clearRect(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
+            Aufgabe12.crc.putImageData(imageData, 0, 0);
+        }
         for (let i = 0; i < theRightFishArray.length; i++) {
             theRightFishArray[i].update();
         }
@@ -73,16 +99,57 @@ var Aufgabe12;
         }
         bottomFoodArray = [];
         for (let i = 0; i < playerFishArray.length; i++) {
+            playerScoreArray[i] = (playerFishArray[i].size - 1) * 100;
             playerFishArray[i].update();
         }
         colide();
+        if (playerFishArray.length == 0) {
+            insert();
+        }
     }
     function colide() {
         for (let i = 0; i < playerFishArray.length; i++) {
-            for (let n = 0; n < theLeftFishArray.length; n++) {
+            let deletionArray = [];
+            for (let n = 0; n < theRightFishArray.length; n++) {
+                let distance = Math.sqrt(((playerFishArray[i].x - theRightFishArray[n].x) * (playerFishArray[i].x - theRightFishArray[n].x)) + ((playerFishArray[i].y - theRightFishArray[n].y) * (playerFishArray[i].y - theRightFishArray[n].y)));
+                let sizeDif = ((playerFishArray[i].size * 25) + (theRightFishArray[n].size * 25));
+                if (distance < sizeDif) {
+                    deletionArray.push(n);
+                }
             }
-            for (let n = 0; n < theLeftFishArray.length; n++) {
+            if (deletionArray.length > 0) {
+                for (let d = deletionArray.length; d > 0; d--) {
+                    let r = d - 1;
+                    if (playerFishArray[i].size >= theRightFishArray[deletionArray[r]].size) {
+                        playerFishArray[i].size += theRightFishArray[deletionArray[r]].size / 10;
+                        theRightFishArray.splice(deletionArray[r], 1);
+                    }
+                    else {
+                        console.log("Game OVER!");
+                    }
+                }
             }
+            deletionArray = [];
+            for (let n = 0; n < theLeftFishArray.length; n++) {
+                let distance = Math.sqrt(((playerFishArray[i].x - theLeftFishArray[n].x) * (playerFishArray[i].x - theLeftFishArray[n].x)) + ((playerFishArray[i].y - theLeftFishArray[n].y) * (playerFishArray[i].y - theLeftFishArray[n].y)));
+                let sizeDif = ((playerFishArray[i].size * 25) + (theLeftFishArray[n].size * 25));
+                if (distance < sizeDif) {
+                    deletionArray.push(n);
+                }
+            }
+            if (deletionArray.length > 0) {
+                for (let d = deletionArray.length; d > 0; d--) {
+                    let r = d - 1;
+                    if (playerFishArray[i].size >= theLeftFishArray[deletionArray[r]].size) {
+                        playerFishArray[i].size += theLeftFishArray[deletionArray[r]].size / 10;
+                        theLeftFishArray.splice(deletionArray[r], 1);
+                    }
+                    else {
+                        console.log("Game OVER!");
+                    }
+                }
+            }
+            deletionArray = [];
         }
     }
     function drawBackground() {
@@ -149,7 +216,6 @@ var Aufgabe12;
     }
     function activateAcc(_event) {
         let key_press = _event.which;
-        console.log("Down:" + key_press);
         if (key_press == 87) {
             playerFishArray[0].dUp = true;
         }
@@ -162,10 +228,21 @@ var Aufgabe12;
         if (key_press == 68) {
             playerFishArray[0].dRight = true;
         }
+        if (key_press == 38 && playerNameArray.length == 2) {
+            playerFishArray[1].dUp = true;
+        }
+        if (key_press == 37 && playerNameArray.length == 2) {
+            playerFishArray[1].dLeft = true;
+        }
+        if (key_press == 40 && playerNameArray.length == 2) {
+            playerFishArray[1].dDown = true;
+        }
+        if (key_press == 39 && playerNameArray.length == 2) {
+            playerFishArray[1].dRight = true;
+        }
     }
     function deactivateAcc(_event) {
         let key_lift = _event.which;
-        console.log("Up:" + key_lift);
         if (key_lift == 87) {
             playerFishArray[0].dUp = false;
         }
@@ -177,6 +254,42 @@ var Aufgabe12;
         }
         if (key_lift == 68) {
             playerFishArray[0].dRight = false;
+        }
+        if (key_lift == 38 && playerNameArray.length == 2) {
+            playerFishArray[1].dUp = false;
+        }
+        if (key_lift == 37 && playerNameArray.length == 2) {
+            playerFishArray[1].dLeft = false;
+        }
+        if (key_lift == 40 && playerNameArray.length == 2) {
+            playerFishArray[1].dDown = false;
+        }
+        if (key_lift == 39 && playerNameArray.length == 2) {
+            playerFishArray[1].dRight = false;
+        }
+    }
+    //--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
+    // Under Construction. See 9
+    let serverAddress = "https://server-eia2-bc.herokuapp.com/";
+    function insert() {
+        let query = "command=insert";
+        for (let i = 0; i < playerNameArray.length; i++) {
+            query += "&player" + i + "=" + playerNameArray[i];
+            query += "&score" + i + "=" + playerScoreArray[i];
+        }
+        console.log(query);
+        sendRequest(query, handleInsertResponse);
+    }
+    function sendRequest(_query, _callback) {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", serverAddress + "?" + _query, true);
+        xhr.addEventListener("readystatechange", _callback);
+        xhr.send();
+    }
+    function handleInsertResponse(_event) {
+        let xhr = _event.target;
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            alert(xhr.response);
         }
     }
 })(Aufgabe12 || (Aufgabe12 = {}));
