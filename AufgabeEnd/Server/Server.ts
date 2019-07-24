@@ -19,8 +19,6 @@ server.addListener("listening", handleListen);
 server.addListener("request", handleRequest);
 server.listen(port);
 
-
-
 function handleListen(): void {
     console.log("Listening on port: " + port);
 }
@@ -37,7 +35,6 @@ function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerRes
                 score: parseInt(query["score0"])
             };
             Database.insert(player0);
-            respond(_response, "storing data");
             let player1: PlayerScore = {
                 playerName: query["player1"],
                 score: parseInt(query["score1"])
