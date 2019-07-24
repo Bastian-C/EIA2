@@ -121,7 +121,7 @@ function update(): void {
     bottomFoodArray = [];
 
     for (let i: number = 0; i < playerFishArray.length; i++) {
-        playerScoreArray[i]=(playerFishArray[i].size-1)*100;
+        playerScoreArray[i]=playerFishArray[i].size*100;
         playerFishArray[i].update();
     }
 

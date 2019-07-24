@@ -100,7 +100,7 @@ var Aufgabe12;
         }
         bottomFoodArray = [];
         for (let i = 0; i < playerFishArray.length; i++) {
-            playerScoreArray[i] = (playerFishArray[i].size - 1) * 100;
+            playerScoreArray[i] = playerFishArray[i].size * 100;
             playerFishArray[i].update();
         }
         colide();
