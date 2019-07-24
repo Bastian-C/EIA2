@@ -11,6 +11,7 @@ var Aufgabe12;
     let bottomFoodArray = [];
     let fps = 30;
     let imageData;
+    let gameInProgress = true;
     function init() {
         let playerNumberString = prompt("Please enter the amount of Players (1 or 2)", "1");
         while (playerNumberString != "1" && playerNumberString != "2") {
@@ -73,7 +74,7 @@ var Aufgabe12;
         update();
     }
     function update() {
-        if (playerFishArray.length > 0) {
+        if (playerFishArray.length > 0 || (theLeftFishArray.length != 0 && theLeftFishArray.length != 0)) {
             window.setTimeout(update, 1000 / fps);
             Aufgabe12.crc.clearRect(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
             Aufgabe12.crc.putImageData(imageData, 0, 0);
@@ -103,8 +104,10 @@ var Aufgabe12;
             playerFishArray[i].update();
         }
         colide();
-        if (playerFishArray.length == 0) {
+        if ((playerFishArray.length == 0 || (theLeftFishArray.length == 0 && theLeftFishArray.length == 0)) && gameInProgress == true) {
             insert();
+            refresh();
+            gameInProgress = false; //Verhindert multible Speicherung
         }
     }
     function colide() {
@@ -145,6 +148,7 @@ var Aufgabe12;
                         theLeftFishArray.splice(deletionArray[r], 1);
                     }
                     else {
+                        playerFishArray.splice(i, 1);
                         console.log("Game OVER!");
                     }
                 }
@@ -270,7 +274,7 @@ var Aufgabe12;
     }
     //--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
     // Under Construction. See 9
-    let serverAddress = "https://server-eia2-bc.herokuapp.com/";
+    let serverAddress = "https://bc-fish.herokuapp.com/";
     function insert() {
         let query = "command=insert";
         for (let i = 0; i < playerNameArray.length; i++) {
@@ -290,6 +294,19 @@ var Aufgabe12;
         let xhr = _event.target;
         if (xhr.readyState == XMLHttpRequest.DONE) {
             alert(xhr.response);
+        }
+    }
+    function refresh() {
+        let query = "command=refresh";
+        sendRequest(query, handleFindResponse);
+    }
+    function handleFindResponse(_event) {
+        let xhr = _event.target;
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            let output = document.getElementsByTagName("textarea")[0];
+            output.value = xhr.response;
+            let responseAsJson = JSON.parse(xhr.response);
+            console.log(responseAsJson);
         }
     }
 })(Aufgabe12 || (Aufgabe12 = {}));

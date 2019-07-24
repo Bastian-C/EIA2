@@ -12,6 +12,7 @@ let foodArray: theFood[] = [];
 let bottomFoodArray:number[] = [];
 let fps: number = 30;
 let imageData: ImageData;
+let gameInProgress: boolean=true;
 
 
 function init(): void {
@@ -86,7 +87,7 @@ function init(): void {
 }
 
 function update(): void {
-    if (playerFishArray.length>0){
+    if (playerFishArray.length>0||(theLeftFishArray.length!=0&&theLeftFishArray.length!=0)){
         window.setTimeout(update, 1000 / fps);
         crc.clearRect(0, 0, canvas.width, canvas.height);
         crc.putImageData(imageData, 0, 0);
@@ -126,8 +127,10 @@ function update(): void {
 
     colide()
 
-    if (playerFishArray.length==0){
+    if ((playerFishArray.length==0||(theLeftFishArray.length==0&&theLeftFishArray.length==0))&&gameInProgress==true){
         insert();
+        refresh();
+        gameInProgress=false; //Verhindert multible Speicherung
     }    
 }
 
@@ -171,6 +174,7 @@ function colide(){
                     theLeftFishArray.splice(deletionArray[r], 1);
                 }
                 else{
+                    playerFishArray.splice(i, 1);
                     console.log("Game OVER!");
                 }
             }    
@@ -313,7 +317,7 @@ function deactivateAcc (_event:KeyboardEvent){
 //--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
 
 // Under Construction. See 9
-let serverAddress: string = "https://server-eia2-bc.herokuapp.com/";
+let serverAddress: string = "https://bc-fish.herokuapp.com/";
 
     function insert(): void {
         let query: string = "command=insert";
@@ -339,6 +343,18 @@ let serverAddress: string = "https://server-eia2-bc.herokuapp.com/";
         }
     }
 
+    function refresh(): void {
+        let query: string = "command=refresh";
+        sendRequest(query, handleFindResponse);
+    }
 
-
+    function handleFindResponse(_event: ProgressEvent): void {
+        let xhr: XMLHttpRequest = (<XMLHttpRequest>_event.target);
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            let output: HTMLTextAreaElement = document.getElementsByTagName("textarea")[0];
+            output.value = xhr.response;
+            let responseAsJson: JSON = JSON.parse(xhr.response);
+            console.log(responseAsJson);
+        }
+    }
 }
