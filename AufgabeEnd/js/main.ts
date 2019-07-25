@@ -87,7 +87,7 @@ function init(): void {
 }
 
 function update(): void {
-    if (playerFishArray.length>0||(theLeftFishArray.length!=0&&theLeftFishArray.length!=0)){
+    if (gameInProgress==true){
         window.setTimeout(update, 1000 / fps);
         crc.clearRect(0, 0, canvas.width, canvas.height);
         crc.putImageData(imageData, 0, 0);
@@ -127,7 +127,7 @@ function update(): void {
 
     colide()
 
-    if ((playerFishArray.length==0||(theLeftFishArray.length==0&&theLeftFishArray.length==0))&&gameInProgress==true){
+    if ((playerFishArray.length==0||(theLeftFishArray.length==0&&theRightFishArray.length==0))&&gameInProgress==true){
         insert();
         refresh();
         gameInProgress=false; //Verhindert multible Speicherung

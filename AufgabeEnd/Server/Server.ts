@@ -29,18 +29,20 @@ function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerRes
     let query: Leaderboard = <Leaderboard> Url.parse(_request.url, true).query;
     let command: string = query["command"];
     switch (command) {
-        case "insert":
+        case "insert":     //make 2 instert functions for single and multiplayer
             let player0: PlayerScore = {
                 playerName: query["player0"],
                 score: parseInt(query["score0"])
             };
             Database.insert(player0);
-            let player1: PlayerScore = {
-                playerName: query["player1"],
-                score: parseInt(query["score1"])
-            };
-            Database.insert(player1);
-            respond(_response, "storing data");
+            if (query["player1"]!=null){
+                let player1: PlayerScore = {
+                    playerName: query["player1"],
+                    score: parseInt(query["score1"])
+                };
+                Database.insert(player1);
+                respond(_response, "storing data");
+            }
             break;
         case "refresh":
             Database.findAll(findCallback);

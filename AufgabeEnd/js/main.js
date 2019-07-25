@@ -74,7 +74,7 @@ var Aufgabe12;
         update();
     }
     function update() {
-        if (playerFishArray.length > 0 || (theLeftFishArray.length != 0 && theLeftFishArray.length != 0)) {
+        if (gameInProgress == true) {
             window.setTimeout(update, 1000 / fps);
             Aufgabe12.crc.clearRect(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
             Aufgabe12.crc.putImageData(imageData, 0, 0);
@@ -104,7 +104,7 @@ var Aufgabe12;
             playerFishArray[i].update();
         }
         colide();
-        if ((playerFishArray.length == 0 || (theLeftFishArray.length == 0 && theLeftFishArray.length == 0)) && gameInProgress == true) {
+        if ((playerFishArray.length == 0 || (theLeftFishArray.length == 0 && theRightFishArray.length == 0)) && gameInProgress == true) {
             insert();
             refresh();
             gameInProgress = false; //Verhindert multible Speicherung
