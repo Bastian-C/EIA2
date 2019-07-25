@@ -1,4 +1,4 @@
-interface AssocStringString {
+interface Leaderboard {
     [key: string]: string;
 }
 

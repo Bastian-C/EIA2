@@ -3,6 +3,7 @@
  * @author: Jirka Dell'Oro-Friedl
  * @adapted: Bastian Culig
  */
+ 
 
 import * as Mongo from "mongodb";
 console.log("Database starting");
@@ -51,11 +52,11 @@ export function findAll(_callback: Function): void {
 
     // toArray-handler receives two standard parameters, an error object and the array
     // implemented as inner function, so _callback is in scope
-    function prepareAnswer(_e: Mongo.MongoError, playerArray: PlayerScore[]): void {
+    function prepareAnswer(_e: Mongo.MongoError, playerScoreArray: PlayerScore[]): void {
         if (_e)
             _callback("Error" + _e);
         else
             // stringify creates a json-string, passed it back to _callback
-            _callback(JSON.stringify(playerArray));
+            _callback(JSON.stringify(playerScoreArray));
     }
 }

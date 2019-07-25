@@ -104,7 +104,7 @@ var Aufgabe12;
             playerFishArray[i].update();
         }
         colide();
-        if ((playerFishArray.length == 0 || (theLeftFishArray.length + theLeftFishArray.length == 0) && gameInProgress == true)) {
+        if ((playerFishArray.length == 0 || (theLeftFishArray.length == 0 && theLeftFishArray.length == 0)) && gameInProgress == true) {
             insert();
             refresh();
             gameInProgress = false; //Verhindert multible Speicherung
@@ -273,7 +273,6 @@ var Aufgabe12;
         }
     }
     //--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
-    // Under Construction. See 9
     let serverAddress = "https://server-eia2-bc.herokuapp.com/";
     function insert() {
         let query = "command=insert";

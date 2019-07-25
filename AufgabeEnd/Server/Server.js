@@ -30,7 +30,6 @@ function handleRequest(_request, _response) {
                 score: parseInt(query["score0"])
             };
             Database.insert(player0);
-            respond(_response, "storing data");
             let player1 = {
                 playerName: query["player1"],
                 score: parseInt(query["score1"])

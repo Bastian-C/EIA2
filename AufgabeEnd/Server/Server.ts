@@ -26,7 +26,7 @@ function handleListen(): void {
 function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
     console.log("Request received");
 
-    let query: AssocStringString = <AssocStringString> Url.parse(_request.url, true).query;
+    let query: Leaderboard = <Leaderboard> Url.parse(_request.url, true).query;
     let command: string = query["command"];
     switch (command) {
         case "insert":
