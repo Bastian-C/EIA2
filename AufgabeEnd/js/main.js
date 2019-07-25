@@ -13,6 +13,7 @@ var Aufgabe12;
     let imageData;
     let gameInProgress = true;
     function init() {
+        refresh();
         let playerNumberString = prompt("Please enter the amount of Players (1 or 2)", "1");
         while (playerNumberString != "1" && playerNumberString != "2") {
             alert("Either chose Singleplayer (1) or Multiplayer (2)");
@@ -105,7 +106,10 @@ var Aufgabe12;
         }
         colide();
         if ((playerFishArray.length == 0 || (theLeftFishArray.length == 0 && theRightFishArray.length == 0)) && gameInProgress == true) {
-            insert();
+            insert0();
+            if (playerFishArray.length == 2) {
+                insert1();
+            }
             refresh();
             gameInProgress = false; //Verhindert multible Speicherung
         }
@@ -274,12 +278,17 @@ var Aufgabe12;
     }
     //--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
     let serverAddress = "https://server-eia2-bc.herokuapp.com/";
-    function insert() {
-        let query = "command=insert";
-        for (let i = 0; i < playerNameArray.length; i++) {
-            query += "&player" + i + "=" + playerNameArray[i];
-            query += "&score" + i + "=" + playerScoreArray[i];
-        }
+    function insert0() {
+        let query = "command=insert0";
+        query += "&player0=" + playerNameArray[0];
+        query += "&score0=" + playerScoreArray[0];
+        console.log(query);
+        sendRequest(query, handleInsertResponse);
+    }
+    function insert1() {
+        let query = "command=insert1";
+        query += "&player1=" + playerNameArray[1];
+        query += "&score1=" + playerScoreArray[1];
         console.log(query);
         sendRequest(query, handleInsertResponse);
     }
@@ -302,11 +311,31 @@ var Aufgabe12;
     function handleFindResponse(_event) {
         let xhr = _event.target;
         if (xhr.readyState == XMLHttpRequest.DONE) {
-            let output = document.getElementsByTagName("textarea")[0];
+            let allPlayersArray = JSON.parse(xhr.response);
+            for (let i = 0; i < allPlayersArray.length; i++) {
+                allPlayersArray.sort(sortPlayers);
+            }
+            document.getElementById("scoreBoard").innerHTML = "";
+            for (let i = 0; i < 10; i++) {
+                let newPlayer = document.createElement("div");
+                document.getElementById("scoreBoard").appendChild(newPlayer);
+                newPlayer.setAttribute("id", i.toString());
+                newPlayer.innerHTML = `${i + 1}.Place: ${allPlayersArray[i].playerName} : ${allPlayersArray[i].score}`;
+            }
+            /* let output: HTMLTextAreaElement = document.getElementsByTagName("textarea")[0];
             output.value = xhr.response;
-            let responseAsJson = JSON.parse(xhr.response);
-            console.log(responseAsJson);
+            let responseAsJson: JSON = JSON.parse(xhr.response);
+            console.log(responseAsJson); */
         }
+    }
+    function sortPlayers(_1, _2) {
+        if (_1.score < _2.score) {
+            return 1;
+        }
+        if (_1.score > _2.score) {
+            return -1;
+        }
+        return 0;
     }
 })(Aufgabe12 || (Aufgabe12 = {}));
 //# sourceMappingURL=main.js.map
