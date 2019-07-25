@@ -274,7 +274,7 @@ var Aufgabe12;
     }
     //--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
     // Under Construction. See 9
-    let serverAddress = "https://bc-fish.herokuapp.com/";
+    let serverAddress = "https://server-eia2-bc.herokuapp.com/";
     function insert() {
         let query = "command=insert";
         for (let i = 0; i < playerNameArray.length; i++) {

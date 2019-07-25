@@ -317,7 +317,7 @@ function deactivateAcc (_event:KeyboardEvent){
 //--------------------------------------------------------------------------- DATABASE --------------------------------------------------------------------------------
 
 // Under Construction. See 9
-let serverAddress: string = "https://bc-fish.herokuapp.com/";
+let serverAddress: string = "https://server-eia2-bc.herokuapp.com/";
 
     function insert(): void {
         let query: string = "command=insert";
