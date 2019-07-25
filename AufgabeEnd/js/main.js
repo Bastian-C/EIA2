@@ -315,10 +315,10 @@ var Aufgabe12;
             for (let i = 0; i < allPlayersArray.length; i++) {
                 allPlayersArray.sort(sortPlayers);
             }
-            document.getElementById("scoreBoard").innerHTML = "";
+            document.getElementById("leaderboard").innerHTML = "";
             for (let i = 0; i < 10; i++) {
                 let newPlayer = document.createElement("div");
-                document.getElementById("scoreBoard").appendChild(newPlayer);
+                document.getElementById("leaderboard").appendChild(newPlayer);
                 newPlayer.setAttribute("id", i.toString());
                 newPlayer.innerHTML = `${i + 1}.Place: ${allPlayersArray[i].playerName} : ${allPlayersArray[i].score}`;
             }
