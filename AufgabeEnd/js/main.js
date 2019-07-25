@@ -104,7 +104,7 @@ var Aufgabe12;
             playerFishArray[i].update();
         }
         colide();
-        if ((playerFishArray.length == 0 || (theLeftFishArray.length == 0 && theLeftFishArray.length == 0)) && gameInProgress == true) {
+        if ((playerFishArray.length == 0 || (theLeftFishArray.length + theLeftFishArray.length == 0) && gameInProgress == true)) {
             insert();
             refresh();
             gameInProgress = false; //Verhindert multible Speicherung
