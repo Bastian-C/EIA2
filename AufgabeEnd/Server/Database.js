@@ -13,7 +13,7 @@ let db;
 let players;
 // running on heroku?
 if (process.env.NODE_ENV == "production") {
-    databaseURL = "mongodb+srv://Bastian:BC_Tennessee9@ScoreCluster.mongodb.net/FishTank";
+    databaseURL = "mongodb+srv://b.culig@t-online.de:BC_Tennessee9@ScoreCluster.mongodb.net/FishTank";
     databaseName = "FishTank";
 }
 // try to connect to database, then activate callback "handleConnect" 
