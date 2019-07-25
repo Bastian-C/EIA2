@@ -15,7 +15,7 @@ let players: Mongo.Collection;
 
 // running on heroku?
 if (process.env.NODE_ENV == "production") {
-    databaseURL = "mongodb+srv://b.culig@t-online.de:BC_Tennessee9@ScoreCluster.mongodb.net/FishTank";
+    databaseURL = "mongodb+srv://FishConnect:connected@scorecluster-ixwp9.gcp.mongodb.net/FishTank";
     databaseName = "FishTank";
 }
 
