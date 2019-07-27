@@ -291,16 +291,16 @@ function activateAcc (_event:KeyboardEvent){
     if(key_press==68){
         playerFishArray[0].dRight=true;
     }
-    if(key_press==38&&playerNameArray.length==2){
+    if(key_press==73&&playerNameArray.length==2){
         playerFishArray[1].dUp=true;
     }
-    if(key_press==37&&playerNameArray.length==2){
+    if(key_press==74&&playerNameArray.length==2){
         playerFishArray[1].dLeft=true;
     }
-    if(key_press==40&&playerNameArray.length==2){
+    if(key_press==75&&playerNameArray.length==2){
         playerFishArray[1].dDown=true;
     }
-    if(key_press==39&&playerNameArray.length==2){
+    if(key_press==76&&playerNameArray.length==2){
         playerFishArray[1].dRight=true;
     }
 }
@@ -318,16 +318,16 @@ function deactivateAcc (_event:KeyboardEvent){
     if(key_lift==68){
         playerFishArray[0].dRight=false;
     }
-    if(key_lift==38&&playerNameArray.length==2){
+    if(key_lift==73&&playerNameArray.length==2){
         playerFishArray[1].dUp=false;
     }
-    if(key_lift==37&&playerNameArray.length==2){
+    if(key_lift==74&&playerNameArray.length==2){
         playerFishArray[1].dLeft=false;
     }
-    if(key_lift==40&&playerNameArray.length==2){
+    if(key_lift==75&&playerNameArray.length==2){
         playerFishArray[1].dDown=false;
     }
-    if(key_lift==39&&playerNameArray.length==2){
+    if(key_lift==76&&playerNameArray.length==2){
         playerFishArray[1].dRight=false;
     }
 }
@@ -388,10 +388,6 @@ let serverAddress: string = "https://server-eia2-bc.herokuapp.com/";
                 newPlayer.setAttribute("id", i.toString());
                 newPlayer.innerHTML = `${i + 1}.Place: ${allPlayersArray[i].playerName} : ${allPlayersArray[i].score}`;
             }
-            /* let output: HTMLTextAreaElement = document.getElementsByTagName("textarea")[0];
-            output.value = xhr.response;
-            let responseAsJson: JSON = JSON.parse(xhr.response);
-            console.log(responseAsJson); */
         }
     }
     function sortPlayers(_1: PlayerScore, _2: PlayerScore): number {

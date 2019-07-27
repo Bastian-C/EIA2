@@ -24,7 +24,7 @@ function handleRequest(_request, _response) {
     let query = Url.parse(_request.url, true).query;
     let command = query["command"];
     switch (command) {
-        case "insert0": //make 2 instert functions for single and multiplayer
+        case "insert0":
             let player0 = {
                 playerName: query["player0"],
                 score: parseInt(query["score0"])
@@ -32,7 +32,7 @@ function handleRequest(_request, _response) {
             Database.insert(player0);
             respond(_response, "storing data");
             break;
-        case "insert1": //make 2 instert functions for single and multiplayer
+        case "insert1": //2. insert for Multiplayer
             let player1 = {
                 playerName: query["player1"],
                 score: parseInt(query["score1"])
@@ -47,7 +47,6 @@ function handleRequest(_request, _response) {
             respond(_response, "unknown command: " + command);
             break;
     }
-    // findCallback is an inner function so that _response is in scope
     function findCallback(json) {
         respond(_response, json);
     }

@@ -29,7 +29,7 @@ function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerRes
     let query: Leaderboard = <Leaderboard> Url.parse(_request.url, true).query;
     let command: string = query["command"];
     switch (command) {
-        case "insert0":     //make 2 instert functions for single and multiplayer
+        case "insert0":     
             let player0: PlayerScore = {
                 playerName: query["player0"],
                 score: parseInt(query["score0"])
@@ -38,7 +38,7 @@ function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerRes
                 respond(_response, "storing data");
             break;
 
-            case "insert1":     //make 2 instert functions for single and multiplayer
+            case "insert1":     //2. insert for Multiplayer
             let player1: PlayerScore = {
                 playerName: query["player1"],
                 score: parseInt(query["score1"])
@@ -54,8 +54,6 @@ function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerRes
             break;
             
     }
-
-    // findCallback is an inner function so that _response is in scope
     function findCallback(json: string): void {
         respond(_response, json);
     }
