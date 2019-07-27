@@ -77,9 +77,9 @@ var Aufgabe12;
     function update() {
         if (gameInProgress == true) {
             window.setTimeout(update, 1000 / fps);
-            Aufgabe12.crc.clearRect(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
-            Aufgabe12.crc.putImageData(imageData, 0, 0);
         }
+        Aufgabe12.crc.clearRect(0, 0, Aufgabe12.canvas.width, Aufgabe12.canvas.height);
+        Aufgabe12.crc.putImageData(imageData, 0, 0);
         for (let i = 0; i < theRightFishArray.length; i++) {
             theRightFishArray[i].update();
         }
@@ -105,7 +105,13 @@ var Aufgabe12;
             playerFishArray[i].update();
         }
         colide();
-        if ((playerFishArray.length == 0 || (theLeftFishArray.length == 0 && theRightFishArray.length == 0)) && gameInProgress == true) {
+        let playerDead = 0;
+        for (let i = 0; i < playerFishArray.length; i++) {
+            if (playerFishArray[i].alife == false) {
+                playerDead += 1;
+            }
+        }
+        if ((playerDead == playerFishArray.length || (theLeftFishArray.length == 0 && theRightFishArray.length == 0)) && gameInProgress == true) {
             insert0();
             if (playerFishArray.length == 2) {
                 insert1();
@@ -120,7 +126,7 @@ var Aufgabe12;
             for (let n = 0; n < theRightFishArray.length; n++) {
                 let distance = Math.sqrt(((playerFishArray[i].x - theRightFishArray[n].x) * (playerFishArray[i].x - theRightFishArray[n].x)) + ((playerFishArray[i].y - theRightFishArray[n].y) * (playerFishArray[i].y - theRightFishArray[n].y)));
                 let sizeDif = ((playerFishArray[i].size * 25) + (theRightFishArray[n].size * 25));
-                if (distance < sizeDif) {
+                if (distance < sizeDif && playerFishArray[i].alife == true) {
                     deletionArray.push(n);
                 }
             }
@@ -132,6 +138,7 @@ var Aufgabe12;
                         theRightFishArray.splice(deletionArray[r], 1);
                     }
                     else {
+                        playerFishArray[i].alife = false;
                         console.log("Game OVER!");
                     }
                 }
@@ -140,7 +147,7 @@ var Aufgabe12;
             for (let n = 0; n < theLeftFishArray.length; n++) {
                 let distance = Math.sqrt(((playerFishArray[i].x - theLeftFishArray[n].x) * (playerFishArray[i].x - theLeftFishArray[n].x)) + ((playerFishArray[i].y - theLeftFishArray[n].y) * (playerFishArray[i].y - theLeftFishArray[n].y)));
                 let sizeDif = ((playerFishArray[i].size * 25) + (theLeftFishArray[n].size * 25));
-                if (distance < sizeDif) {
+                if (distance < sizeDif && playerFishArray[i].alife == true) {
                     deletionArray.push(n);
                 }
             }
@@ -152,7 +159,7 @@ var Aufgabe12;
                         theLeftFishArray.splice(deletionArray[r], 1);
                     }
                     else {
-                        playerFishArray.splice(i, 1);
+                        playerFishArray[i].alife = false;
                         console.log("Game OVER!");
                     }
                 }

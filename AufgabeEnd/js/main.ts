@@ -94,9 +94,10 @@ function init(): void {
 function update(): void {
     if (gameInProgress==true){
         window.setTimeout(update, 1000 / fps);
-        crc.clearRect(0, 0, canvas.width, canvas.height);
-        crc.putImageData(imageData, 0, 0);
     }
+
+    crc.clearRect(0, 0, canvas.width, canvas.height);
+    crc.putImageData(imageData, 0, 0);
 
     for (let i: number = 0; i < theRightFishArray.length; i++) {
         theRightFishArray[i].update();
@@ -132,14 +133,22 @@ function update(): void {
 
     colide()
 
-    if ((playerFishArray.length==0||(theLeftFishArray.length==0&&theRightFishArray.length==0))&&gameInProgress==true){
+    let playerDead:number = 0;
+
+    for (let i: number = 0; i < playerFishArray.length; i++) {
+        if(playerFishArray[i].alife==false){
+            playerDead+=1;
+        }
+    }
+
+    if ((playerDead==playerFishArray.length||(theLeftFishArray.length==0&&theRightFishArray.length==0))&&gameInProgress==true){
         insert0();
         if(playerFishArray.length==2){
             insert1();
         }
         refresh();
         gameInProgress=false; //Verhindert multible Speicherung
-    }    
+    } 
 }
 
 function colide(){
@@ -148,7 +157,7 @@ function colide(){
         for (let n: number = 0; n < theRightFishArray.length; n++) {
             let distance:number = Math.sqrt( ( (playerFishArray[i].x-theRightFishArray[n].x) * (playerFishArray[i].x-theRightFishArray[n].x) ) + ( (playerFishArray[i].y-theRightFishArray[n].y) * (playerFishArray[i].y-theRightFishArray[n].y) ) )
             let sizeDif:number = ( (playerFishArray[i].size * 25)+(theRightFishArray[n].size * 25) );
-            if (distance < sizeDif)
+            if (distance < sizeDif && playerFishArray[i].alife==true)
             {
                 deletionArray.push(n);
             }
@@ -161,6 +170,7 @@ function colide(){
                     theRightFishArray.splice(deletionArray[r], 1);
                 }
                 else{
+                    playerFishArray[i].alife=false;
                     console.log("Game OVER!");
                 }
             }    
@@ -169,7 +179,7 @@ function colide(){
         for (let n: number = 0; n < theLeftFishArray.length; n++) {
             let distance:number = Math.sqrt( ( (playerFishArray[i].x-theLeftFishArray[n].x) * (playerFishArray[i].x-theLeftFishArray[n].x) ) + ( (playerFishArray[i].y-theLeftFishArray[n].y) * (playerFishArray[i].y-theLeftFishArray[n].y) ) )
             let sizeDif:number = ( (playerFishArray[i].size * 25)+(theLeftFishArray[n].size * 25) );
-            if (distance < sizeDif)
+            if (distance < sizeDif && playerFishArray[i].alife==true)
             {
                 deletionArray.push(n);
             }
@@ -182,7 +192,7 @@ function colide(){
                     theLeftFishArray.splice(deletionArray[r], 1);
                 }
                 else{
-                    playerFishArray.splice(i, 1);
+                    playerFishArray[i].alife=false;
                     console.log("Game OVER!");
                 }
             }    

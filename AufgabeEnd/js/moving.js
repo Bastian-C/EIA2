@@ -2,6 +2,7 @@ var Aufgabe12;
 (function (Aufgabe12) {
     class moving {
         constructor() {
+            this.alife = true;
         }
         draw() {
         }

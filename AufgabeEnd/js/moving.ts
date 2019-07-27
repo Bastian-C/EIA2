@@ -5,7 +5,7 @@ namespace Aufgabe12 {
         dx: number;
         dy: number;
         size:number;
-
+        alife: Boolean = true;
         dLeft: Boolean;
         dRight: Boolean;
         dUp: Boolean;
