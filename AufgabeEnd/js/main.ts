@@ -6,7 +6,7 @@ let theRightFishArray: theRightFish[] = [];
 let theLeftFishArray: theLeftFish[] = [];
 let playerFishArray: playerFish[] = [];
 let playerNameArray: string[] = [];
-let playerScoreArray: Number[] = [];
+let playerScoreArray: number[] = [];
 let bubbleArray: theBubble[] = [];
 let foodArray: theFood[] = [];
 let bottomFoodArray:number[] = [];
@@ -127,7 +127,7 @@ function update(): void {
     bottomFoodArray = [];
 
     for (let i: number = 0; i < playerFishArray.length; i++) {
-        playerScoreArray[i]=playerFishArray[i].size*100;
+        playerScoreArray[i]=playerFishArray[i].size*1000;
         playerFishArray[i].update();
     }
 
@@ -149,6 +149,9 @@ function update(): void {
         refresh();
         gameInProgress=false; //Verhindert multible Speicherung
     } 
+    document.getElementById("scorePlayerOne").innerHTML = `Score: ${Math.floor(playerScoreArray[0])}`
+    document.getElementById("scorePlayerTwo").innerHTML = `Score: ${Math.floor(playerScoreArray[1])}`
+
 }
 
 function colide(){

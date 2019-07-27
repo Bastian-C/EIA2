@@ -1,0 +1,88 @@
+html, body  
+    {
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        text-overflow: hidden;
+        background-color: blue;
+        color: #ccc;
+    }
+
+h1
+    {
+        margin-top:3%;
+        width: 100%; 
+        justify-content: center;
+        text-align: center;
+        font-size: 70pt;
+        color: #ccc;
+    }
+
+#Play
+    {
+        margin-top:6%;
+        justify-content: center;
+        text-align: center;
+    }
+
+img
+    {
+        width: 60%;
+        height: 40%;
+        margin-bottom: 5%;
+    }    
+
+#controls
+    {
+        outline: black 5px solid;
+        background-color: #8494FF61;
+        margin-left: 5%;
+        float: left;
+        width: 300px;
+        font-size: 20pt;
+    }
+
+h3
+    {
+        margin-top:6%;
+        margin-bottom:3%;
+    }
+
+h2
+    {
+        margin-top:6%;
+        margin-bottom:3%;
+    }
+
+#controls div div
+    {
+        float: left;
+        margin-bottom: 4%;
+        width: 300px;
+        font-size: 20pt;
+    }    
+
+canvas
+    {
+        outline: black 5px solid;
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 5%;
+        margin-right: 5%;
+        display: block;
+        float: left;
+    }   
+
+#complete
+    {
+        margin-top:2%;        
+        float: left;
+        font-size: 20pt;
+    }
+
+
+#leaderboard div
+    {
+        margin-top:4%;
+        font-size: 15pt;
+    }

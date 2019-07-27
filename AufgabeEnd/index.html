@@ -12,22 +12,38 @@
     <script src="js/bubbles.js"> </script>
     <script src="js/food.js"> </script>
     <script src="js/main.js"> </script>
-
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
 </head>
 
 <!--      
-        Aufgabe: (Aufgabe 12) Name: (Bastian Culig)
+        Aufgabe: (Endabgabe) Name: (Bastian Culig)
         Matrikel: (3612802046414452)
-        Datum: (09.06.2019) Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert. 
+        Datum: (27.07.2019) Hiermit versichere ich, dass ich diesen Code selbst geschrieben habe. Er wurde nicht kopiert und auch nicht diktiert. 
 -->
 
 <body>
-    
-    <canvas width="900" height="500"></canvas>
-    <div id="scorePlayerOne"></div>
-    <div id="scorePlayerTwo"></div>
-	<div id="leaderboard"></div>
+    <h1>Feeding Frenzy</h1>
+    <div id="Play">
+        <div id="controls">
+            <div>
+                <h3>Player 1</h3>
+                <div id="scorePlayerOne"></div>
+                <img src="img/WASD_Keys.png" alt="reduced!">
+            </div>
+            <div>
+                <h3>Player 2</h3>
+                <div id="scorePlayerTwo"></div>
+                <img src="img/IJKL_Keys.png" alt="reduced!">
+            </div>
+        </div>
 
+        <canvas width="900" height="500"></canvas>
+
+        <div id="complete">
+            <h2>Leaderboard</h2>
+            <div id="leaderboard"></div>
+        </div>
+    </div>
 </body>
 
 </html>

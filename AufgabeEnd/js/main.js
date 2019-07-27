@@ -101,7 +101,7 @@ var Aufgabe12;
         }
         bottomFoodArray = [];
         for (let i = 0; i < playerFishArray.length; i++) {
-            playerScoreArray[i] = playerFishArray[i].size * 100;
+            playerScoreArray[i] = playerFishArray[i].size * 1000;
             playerFishArray[i].update();
         }
         colide();
@@ -119,6 +119,8 @@ var Aufgabe12;
             refresh();
             gameInProgress = false; //Verhindert multible Speicherung
         }
+        document.getElementById("scorePlayerOne").innerHTML = `Score: ${Math.floor(playerScoreArray[0])}`;
+        document.getElementById("scorePlayerTwo").innerHTML = `Score: ${Math.floor(playerScoreArray[1])}`;
     }
     function colide() {
         for (let i = 0; i < playerFishArray.length; i++) {
